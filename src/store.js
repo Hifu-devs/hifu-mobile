@@ -8,7 +8,7 @@ import {
  import thunk from 'redux-thunk';
 
 // App Imports 
-import * as userInfo from '../Form/Api/reducers';
+import * as userInfo from './Form/Api/reducers';
 
 // Root Reducer
 export const rootReducer = combineReducers({

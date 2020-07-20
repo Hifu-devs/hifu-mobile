@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     
 })
 

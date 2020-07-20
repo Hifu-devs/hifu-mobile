@@ -1,5 +1,5 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
     StyleSheet,
@@ -11,7 +11,7 @@ import {
   } from 'react-native';
 
 
-  export const LandingPage = ({ navigation }) => {
+  const LandingPage = ({ navigation }) => {
 
     const handleEnterSite = () => {
       navigation.navigate('Form'); 
@@ -86,14 +86,14 @@ import {
     },  
   });
 
-  // const mapStateToProps = (state) => {
-  //   return state;
-  // }
+  const mapStateToProps = (state) => {
+    return state;
+  }
   
-  // const mapDispatchToProps = (dispatch) => {
-  //   return {
+  const mapDispatchToProps = (dispatch) => {
+    return {
       
-  //   }
-  // }
+    }
+  }
   
-  // export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
+  export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

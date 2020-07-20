@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
     StyleSheet,
     Text,
@@ -6,7 +8,7 @@ import {
     TouchableOpacity,
     ImageBackground,
   } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+
 
   export const LandingPage = () => {
     return (

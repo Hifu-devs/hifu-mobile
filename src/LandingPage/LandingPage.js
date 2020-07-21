@@ -5,12 +5,18 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
     TouchableOpacity,
     ImageBackground,
   } from 'react-native';
 
 
-  export const LandingPage = () => {
+  const LandingPage = ({ navigation }) => {
+
+    const handleEnterSite = () => {
+      navigation.navigate('Form'); 
+    }; 
+
     return (
       <View style={styles.container}>
          <ImageBackground
@@ -29,7 +35,7 @@ import {
             </Text>
             <TouchableOpacity 
               style={styles.button}
-              // onPress={}
+              onPress={() => handleEnterSite()}
             >
               <Text style={styles.buttonText}>Start Trip</Text>
             </TouchableOpacity>
@@ -79,3 +85,15 @@ import {
       fontSize: 24,
     },  
   });
+
+  const mapStateToProps = (state) => {
+    return state;
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

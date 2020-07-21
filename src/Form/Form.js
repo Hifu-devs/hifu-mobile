@@ -1,120 +1,94 @@
+// Imports
 import React, { Component }  from 'react';
-import { connect } from 'react-redux';
-import {
-  useFonts,
-  OpenSansCondensed_300Light,
-} from '@expo-google-fonts/open-sans-condensed';
+import { reduxForm, Field } from 'redux-form';
 import {
     StyleSheet,
     Text,
     View,
-    Image,
     TouchableOpacity,
-    ImageBackground,
     ScrollView,
+    Picker,
+    TextInput,
+    FormLabel,
+    FormValidationMessage,
   } from 'react-native';
 
-  class Form extends Component {
+// App Imports
+import {textInput, genderDropDown} from './inputFields';
 
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-          isOverviewRead: false
-        }
-      }
-    
-      
-    closeInfoWindow = () => {
-      this.setState({
-        isOverviewRead: true
-      })
-    }
+class Form extends Component {
+  render() {
+    const formStates = ['asyncValidating', 'dirty', 'pristine', 'valid', 'invalid', 'submitting',
+    'submitSucceeded', 'submitFailed'];
 
-    render() {
-        return (
-          <View style={styles.container}>
-            {this.state.isOverviewRead ? (
-             <ImageBackground
-             source={require('../../assets/Images/forest.png')}
-             style={styles.backgroundImg}
-           >
-             <ScrollView>
-               <Text>
-               </Text>
-             </ScrollView>            
-           </ImageBackground>  
-          ) : (
-            <ImageBackground
-            source={require('../../assets/Images/desert.png')}
-            style={styles.backgroundImg}
-          >
-            <View style={styles.header}>
-              <TouchableOpacity 
-                style={styles.button}
-                onPress={() => this.closeInfoWindow()}
-              >
-                <Text style={styles.buttonText}>X</Text>
-              </TouchableOpacity>
-              <Text style={styles.infoHeader}>
-                {'Welcome to hifu'.toUpperCase()}
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.infoText}>
-              A search and rescue ‘dead man’s switch’ for all of your outdoor activities. After entering your personal information, and an emergency contact, you can define your route’s waypoints.  When all the information is complete, submit your activity and it will be stored securely. When you check-in before your route’s end time, ALL of your submitted information is deleted from our system. If you fail to checked-in by the stated end time of your route, we will automatically forward all of your location and trip info to your emergency contact.
-              </Text>
-            </View>
-          </ImageBackground> 
-          )}      
-        </View>
-      )
-    }
+    return (
+      <ScrollView style={styles.container}>
+        <Field
+          placeholder={'First Name'}
+          name={'firstName'}
+          component={textInput}
+          validate={(val) => val ? undefined : 'Password field is required'}
+        />
+        <Field
+          placeholder={'Last Name'}
+          name={'lastName'}
+          component={textInput}
+          validate={(val) => val ? undefined : 'Password field is required'}
+        />
+        <Field
+          placeholder={'email'}
+          name={'email'}
+          component={textInput}
+        />
+        <Field
+          placeholder={'Phone #'}
+          name={'phone'}
+          component={textInput}
+          validate={(val) => val ? undefined : 'Password field is required'}
+        />
+        <Field
+          placeholder={'Address'}
+          name={'address'}
+          component={textInput}
+        />
+        <Field
+          placeholder={'Age'}
+          name={'age'}
+          component={textInput}
+          // validate={(val) => val ? undefined : 'Password field is required'}
+        />
+        <Field
+          placeholder={'Gender'}
+          name={'gender'}
+          component={genderDropDown}
+          // validate={(val) => val ? undefined : 'Password field is required'}
+        />
+      </ScrollView>         
+    )
   }
+}
 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#fff',
   },
-  backgroundImg: {
-    flex: 1,
-    padding: 25,
-    // resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  infoHeader: {
-    fontFamily: 'OpenSansCondensed_300Light',
-    fontSize: 50,
-    textAlign: 'center',
-    color: '#000',
-    marginBottom: 10,
-  },
-  infoText: {
-    fontFamily: 'OpenSansCondensed_300Light',
-    fontSize: 25,
-    textAlign: 'center',
-    color: '#000',
-  },
-  button: {
-    marginLeft: 100, 
-    alignItems: 'flex-end',
-  },
-  buttonText: {
-    fontSize: 40,
-  },
-  formBlock: {
-
-  },
-
 });
 
-const mapStateToProps = (state) => ({
+export default reduxForm({
+  form: 'user',
+  fields: ['firstName', 'lastName', 'email', 'phone', 'address', 'age', 'gender'],
+  validate: (values) => {
+    const errors = {};
+    const emailRegex = /\S+@\S+\.\S+/;
+    errors.email = !values.email
+      ? 'Email field is required'
+      : !emailRegex.test(values.email)
+      ? 'Email format is invalid'
+      : undefined;
     
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+    return errors;
+  }
+})(Form);

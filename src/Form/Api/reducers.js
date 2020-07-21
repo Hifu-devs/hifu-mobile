@@ -3,11 +3,15 @@ import {
     UPDATE_USER_FORM,  
 } from './actions';
 
-export const userInitialState = {
-    
-}
+// export const userInitialState = {
+//     user: {
+//         firstName: '',
+//         lastName: '',
+//         email: '',
+//     }
+// }
 
-export const userInfo = (state = userInitialState, action) => {
+export const userInfo = (state = [], action) => {
     switch (action.type) {
         case 'UPDATE_USER_FORM':
             return state = [...action.inputs];

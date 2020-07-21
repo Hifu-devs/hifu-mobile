@@ -19,7 +19,7 @@ import {
   const LandingPage = ({ navigation }) => {
 
     const handleEnterSite = () => {
-      navigation.navigate('Form'); 
+      navigation.navigate('User'); 
     }; 
 
     const [fontsLoaded] = useFonts({

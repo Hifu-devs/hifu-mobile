@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { AppLoading } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
+import {
+  useFonts,
+  OpenSansCondensed_300Light,
+} from '@expo-google-fonts/open-sans-condensed';
 import {
     StyleSheet,
     Text,
@@ -17,32 +22,40 @@ import {
       navigation.navigate('Form'); 
     }; 
 
-    return (
-      <View style={styles.container}>
-         <ImageBackground
-          source={require('../../assets/Background.png')}
-          style={styles.backgroundImg}
-        >
-          <LinearGradient
-            colors={['rgba(196, 196, 196, 0.66)', 'rgba(196, 196, 196, 0)']}
-            style={styles.linearGradient}
+    const [fontsLoaded] = useFonts({
+      OpenSansCondensed_300Light,
+    });
+
+    if (!fontsLoaded) {
+      return <AppLoading />
+    } else {
+      return (
+        <View style={styles.container}>
+          <ImageBackground
+            source={require('../../assets/Images/mountains.png')}
+            style={styles.backgroundImg}
           >
-            <Text style={styles.logoHeader}>
-              {'Hifu'.toUpperCase()}
-            </Text>
-            <Text style={styles.logoText}>
-              {'When you want to get lost but still found'.toUpperCase()}
-            </Text>
-            <TouchableOpacity 
-              style={styles.button}
-              onPress={() => handleEnterSite()}
+            <LinearGradient
+              colors={['rgba(196, 196, 196, 0.66)', 'rgba(196, 196, 196, 0)']}
+              style={styles.linearGradient}
             >
-              <Text style={styles.buttonText}>Start Trip</Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </ImageBackground>  
-      </View>
-    );
+              <Text style={styles.logoHeader}>
+                {'Hifu'.toUpperCase()}
+              </Text>
+              <Text style={styles.logoText}>
+                {'When you want to get lost but still found'.toUpperCase()}
+              </Text>
+              <TouchableOpacity 
+                style={styles.button}
+                onPress={() => handleEnterSite()}
+              >
+                <Text style={styles.buttonText}>Start Trip</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </ImageBackground>  
+        </View>
+      );
+    }
   }
 
   const styles = StyleSheet.create({
@@ -52,7 +65,7 @@ import {
     backgroundImg: {
       flex: 1,
       padding: 25,
-      resizeMode: 'cover',
+      // resizeMode: 'cover',
       justifyContent: 'center',
     },
     linearGradient: {
@@ -63,12 +76,14 @@ import {
       justifyContent: 'center',
     },
     logoHeader: {
+      fontFamily: 'OpenSansCondensed_300Light',
       fontSize: 50,
       marginBottom: 5,
       textAlign: 'center',
       color: '#000',
     },
     logoText: {
+      fontFamily: 'OpenSansCondensed_300Light',
       fontSize: 21,
       color: '#000',
       textAlign: 'center',

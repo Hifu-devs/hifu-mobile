@@ -3,26 +3,20 @@ import React, { Component }  from 'react';
 import { reduxForm, Field } from 'redux-form';
 import {
     StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
     ScrollView,
-    Picker,
-    TextInput,
-    FormLabel,
-    FormValidationMessage,
+    View,
   } from 'react-native';
 
 // App Imports
-import {textInput, genderDropDown} from './inputFields';
+import {textInput, genderDropDown, ethnicityDropDown} from './InputFields';
 
-class Form extends Component {
+class UserForm extends Component {
   render() {
     const formStates = ['asyncValidating', 'dirty', 'pristine', 'valid', 'invalid', 'submitting',
     'submitSucceeded', 'submitFailed'];
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Field
           placeholder={'First Name'}
           name={'firstName'}
@@ -58,12 +52,52 @@ class Form extends Component {
           // validate={(val) => val ? undefined : 'Password field is required'}
         />
         <Field
-          placeholder={'Gender'}
-          name={'gender'}
-          component={genderDropDown}
-          // validate={(val) => val ? undefined : 'Password field is required'}
+          placeholder={'SatTracker Address'}
+          name={'satTrackerAddress'}
+          component={textInput}
         />
-      </ScrollView>         
+        <Field
+          placeholder={'Blood Type'}
+          name={'bloodType'}
+          component={textInput}
+        />
+        <Field
+          placeholder={'Allergies'}
+          multiline={true}
+          name={'allergies'}
+          component={textInput}
+        />
+        <Field
+          placeholder={'Medical Conditions'}
+          multiline={true}
+          name={'medicalConditions'}
+          component={textInput}
+        />
+         <Field
+          placeholder={'Height(CM):'}
+          keyboardType={'numeric'}
+          name={'heightCM'}
+          component={textInput}
+        />
+         <Field
+          placeholder={'Weight(KG):'}
+          keyboardType={'numeric'}
+          name={'weightKG'}
+          component={textInput}
+        />
+        <Field
+          name={'gender'}
+          component={ genderDropDown }
+          iosHeader="Select one"
+          mode="dropdown"
+        />
+        <Field
+          name={'gender'}
+          component={ethnicityDropDown}
+          iosHeader="Select one"
+          mode="dropdown"
+        />
+      </View>         
     )
   }
 }
@@ -79,7 +113,6 @@ const styles = StyleSheet.create({
 
 export default reduxForm({
   form: 'user',
-  fields: ['firstName', 'lastName', 'email', 'phone', 'address', 'age', 'gender'],
   validate: (values) => {
     const errors = {};
     const emailRegex = /\S+@\S+\.\S+/;
@@ -91,4 +124,4 @@ export default reduxForm({
     
     return errors;
   }
-})(Form);
+})(UserForm);

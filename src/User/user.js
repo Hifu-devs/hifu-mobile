@@ -10,7 +10,8 @@ import {
   } from 'react-native';
 
 // App Imports
-import Form from '../Form/form'
+import UserForm from '../Forms/UserForm';
+import ContactForm from '../Forms/ContactForm';
 
 
   class User extends Component {
@@ -38,7 +39,8 @@ import Form from '../Form/form'
              source={require('../../assets/Images/forest.png')}
              style={styles.backgroundImg}
            >
-              <Form />
+              <UserForm />
+              <ContactForm /> 
             </ImageBackground>  
             ) : (
             <ImageBackground

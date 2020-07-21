@@ -9,7 +9,7 @@ import {
  import {reducer as formReducer} from 'redux-form';
 
 // App Imports 
-import * as userInfo from './Form/Api/reducers';
+import * as userInfo from './Forms/Api/reducers';
 
 // Root Reducer
 export const rootReducer = combineReducers({

@@ -49,14 +49,16 @@ const styles = StyleSheet.create({
 export default reduxForm({
   form: 'contact',
   validate: (values) => {
-    const errors = {};
+    let errors = {};
     const emailRegex = /\S+@\S+\.\S+/;
     errors.email = !values.email
       ? 'Email field is required'
       : !emailRegex.test(values.email)
       ? 'Email format is invalid'
-      : undefined;
+      : errors = {};
     
     return errors;
   }
 })(ContactForm);
+
+// export default reduxForm({ form: 'contact' })(ContactForm);

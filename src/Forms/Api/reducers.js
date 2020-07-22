@@ -1,22 +1,45 @@
 // Action Imports 
 import { 
-    UPDATE_USER_FORM,  
+    SET_USER_INFO,  
 } from './actions';
+import { BaseRouter } from '@react-navigation/native';
 
-// export const userInitialState = {
-//     user: {
-//         firstName: '',
-//         lastName: '',
-//         email: '',
-//     }
-// }
 
-export const userInfo = (state = [], action) => {
+export const userForm = (state = {} , action) => {
     switch (action.type) {
-        case 'UPDATE_USER_FORM':
-            return state = [...action.inputs];
+        case 'SET_USER_INFO':
+            return {
+                user: action.userData,
+                contact: action.contactData,
+                route: action.routeData
+
+            }
         default:
         return state;
     }
 }
+
+
+// export const contact = (state = userForm, action) => {
+//     switch (action.type) {
+//         case 'SET_CONTACT_INFO':
+//             return {
+//                 ...state,
+//                 [action.key]: action.inputs
+//             }
+//         default:
+//         return state;
+//     }
+// }
+// export const route = (state = userForm, action) => {
+//     switch (action.type) {
+//         case 'SET_ROUTE_INFO':
+//             return {
+//                 ...state,
+//                 [action.key]: action.inputs
+//             }
+//         default:
+//         return state;
+//     }
+// }
 

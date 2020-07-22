@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppLoading } from 'expo';
-import { LinearGradient } from 'expo-linear-gradient';
+// import { LinearGradient } from 'expo-linear-gradient';
 import {
   useFonts,
   OpenSansCondensed_300Light,
@@ -35,10 +35,10 @@ import {
             source={require('../../assets/Images/mountains.png')}
             style={styles.backgroundImg}
           >
-            <LinearGradient
+            {/* <LinearGradient
               colors={['rgba(196, 196, 196, 0.66)', 'rgba(196, 196, 196, 0)']}
               style={styles.linearGradient}
-            >
+            > */}
               <Text style={styles.logoHeader}>
                 {'Hifu'.toUpperCase()}
               </Text>
@@ -51,7 +51,7 @@ import {
               >
                 <Text style={styles.buttonText}>Start Trip</Text>
               </TouchableOpacity>
-            </LinearGradient>
+            {/* </LinearGradient> */}
           </ImageBackground>  
         </View>
       );

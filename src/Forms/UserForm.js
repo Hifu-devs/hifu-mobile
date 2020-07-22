@@ -80,13 +80,11 @@ class UserForm extends Component {
         <Field
           name={'gender'}
           component={ genderDropDown }
-          iosHeader="Select one"
           mode="dropdown"
         />
         <Field
           name={'ethnicity'}
           component={ethnicityDropDown}
-          iosHeader="Select one"
           mode="dropdown"
         />
       </View>         
@@ -106,14 +104,16 @@ const styles = StyleSheet.create({
 export default reduxForm({
   form: 'user',
   validate: (values) => {
-    const errors = {};
+    let errors = {};
     const emailRegex = /\S+@\S+\.\S+/;
     errors.email = !values.email
       ? 'Email field is required'
       : !emailRegex.test(values.email)
       ? 'Email format is invalid'
-      : undefined;
+      : errors = {};
     
     return errors;
   }
 })(UserForm);
+
+// export default reduxForm({ form: 'user' })(UserForm);

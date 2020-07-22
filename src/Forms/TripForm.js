@@ -19,7 +19,6 @@ class TripForm extends Component {
           placeholder={'Start Time'}
           name={'startTime'}
           component={textInput}
-        //   validate={(val) => val ? undefined : 'A start time is required'}
         />
         <Field
           placeholder={'End Time'}
@@ -58,4 +57,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default reduxForm({ form: 'route' })(TripForm);
+export default reduxForm({
+    form: 'route',
+    validate: (values) => {
+      let errors = {};
+      errors.startTime = !values.startTime
+        ? 'A start time is required'
+        : errors = {};
+      
+      return errors;
+    }
+  })(TripForm);

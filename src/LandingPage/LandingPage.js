@@ -10,7 +10,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
     TouchableOpacity,
     ImageBackground,
   } from 'react-native';

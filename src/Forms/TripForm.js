@@ -10,8 +10,6 @@ import { textInput } from './InputFields';
 
 class TripForm extends Component {
   render() {
-    const formStates = ['asyncValidating', 'dirty', 'pristine', 'valid', 'invalid', 'submitting',
-    'submitSucceeded', 'submitFailed'];
 
     return (
       <ScrollView style={styles.container}>

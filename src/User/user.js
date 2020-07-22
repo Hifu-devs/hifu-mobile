@@ -23,7 +23,8 @@ import { setUserInfo } from '../Forms/Api/actions';
         super(props)
     
         this.state = {
-          isOverviewRead: true
+          isOverviewRead: true,
+          errorMessages: [],
         }
       }
     
@@ -39,12 +40,14 @@ import { setUserInfo } from '../Forms/Api/actions';
       const contactErrors = this.props.contact.syncErrors;
       const routeErrors = this.props.route.syncErrors;
       if(userErrors || contactErrors || routeErrors){
-        console.log('blah', userErrors, contactErrors, routeErrors);
+        const errors = Object.values(userErrors).concat(Object.values(contactErrors)).concat(Object.values(routeErrors));     
+        this.setState({
+          errorMessages: errors
+        })
       } else {
         const userData = this.props.user.values
         const contactData = this.props.contact.values 
         const routeData = this.props.route.values  
-        console.log('Data', userData, contactData, routeData); 
         await this.props.setUserInfo(userData, contactData, routeData);
       }
     }
@@ -59,9 +62,16 @@ import { setUserInfo } from '../Forms/Api/actions';
                     style={styles.backgroundImg}
                 >
                   <View>
-                    <UserForm />
-                    <ContactForm /> 
-                    <TripForm />
+                    <View>
+                      {this.state.errorMessages.length ? (
+                        this.state.errorMessages.map(error => {
+                          return (<Text style={styles.error}>{error}</Text>)
+                        })
+                      ): undefined }
+                    </View>
+                      <UserForm />
+                      <ContactForm /> 
+                      <TripForm />
                   </View>
                   <View>
                     <TouchableOpacity 
@@ -132,6 +142,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 40,
   },
+  error: {
+    color: 'red',
+    fontSize: 40,
+  }
 });
 
 const mapStateToProps = (state) => {

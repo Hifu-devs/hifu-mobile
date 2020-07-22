@@ -10,8 +10,6 @@ import { textInput } from './InputFields';
 
 class ContactForm extends Component {
   render() {
-    const formStates = ['asyncValidating', 'dirty', 'pristine', 'valid', 'invalid', 'submitting',
-    'submitSucceeded', 'submitFailed'];
 
     return (
       <ScrollView style={styles.container}>
@@ -52,7 +50,7 @@ export default reduxForm({
     let errors = {};
     const emailRegex = /\S+@\S+\.\S+/;
     errors.email = !values.email
-      ? 'Email field is required'
+      ? 'Contact email field is required'
       : !emailRegex.test(values.email)
       ? 'Email format is invalid'
       : errors = {};

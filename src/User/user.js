@@ -7,11 +7,13 @@ import {
     Image,
     TouchableOpacity,
     ImageBackground,
+    ScrollView,
   } from 'react-native';
 
 // App Imports
 import UserForm from '../Forms/UserForm';
 import ContactForm from '../Forms/ContactForm';
+import TripForm from '../Forms/TripForm';
 
 
   class User extends Component {
@@ -35,13 +37,16 @@ import ContactForm from '../Forms/ContactForm';
         return (
           <View style={styles.container}>
             {this.state.isOverviewRead ? (
-             <ImageBackground
-             source={require('../../assets/Images/forest.png')}
-             style={styles.backgroundImg}
-           >
-              <UserForm />
-              <ContactForm /> 
-            </ImageBackground>  
+            <ScrollView>
+                <ImageBackground
+                    source={require('../../assets/Images/forest.png')}
+                    style={styles.backgroundImg}
+                >
+                    <UserForm />
+                    <ContactForm /> 
+                    <TripForm />
+                </ImageBackground>
+            </ScrollView>
             ) : (
             <ImageBackground
             source={require('../../assets/Images/desert.png')}

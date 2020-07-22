@@ -18,16 +18,10 @@ class UserForm extends Component {
     return (
       <View style={styles.container}>
         <Field
-          placeholder={'First Name'}
-          name={'firstName'}
+          placeholder={'Name'}
+          name={'name'}
           component={textInput}
-          validate={(val) => val ? undefined : 'Password field is required'}
-        />
-        <Field
-          placeholder={'Last Name'}
-          name={'lastName'}
-          component={textInput}
-          validate={(val) => val ? undefined : 'Password field is required'}
+          validate={(val) => val ? undefined : 'Name field is required'}
         />
         <Field
           placeholder={'email'}
@@ -38,7 +32,6 @@ class UserForm extends Component {
           placeholder={'Phone #'}
           name={'phone'}
           component={textInput}
-          validate={(val) => val ? undefined : 'Password field is required'}
         />
         <Field
           placeholder={'Address'}
@@ -49,7 +42,6 @@ class UserForm extends Component {
           placeholder={'Age'}
           name={'age'}
           component={textInput}
-          // validate={(val) => val ? undefined : 'Password field is required'}
         />
         <Field
           placeholder={'SatTracker Address'}
@@ -92,7 +84,7 @@ class UserForm extends Component {
           mode="dropdown"
         />
         <Field
-          name={'gender'}
+          name={'ethnicity'}
           component={ethnicityDropDown}
           iosHeader="Select one"
           mode="dropdown"

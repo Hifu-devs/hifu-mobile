@@ -8,7 +8,7 @@ import {
 // App Imports
 import { textInput } from './InputFields';
 
-class ContactForm extends Component {
+class TripForm extends Component {
   render() {
     const formStates = ['asyncValidating', 'dirty', 'pristine', 'valid', 'invalid', 'submitting',
     'submitSucceeded', 'submitFailed'];
@@ -16,21 +16,33 @@ class ContactForm extends Component {
     return (
       <ScrollView style={styles.container}>
         <Field
-          placeholder={'Name'}
-          name={'name'}
+          placeholder={'Start Time'}
+          name={'startTime'}
           component={textInput}
+        //   validate={(val) => val ? undefined : 'A start time is required'}
         />
         <Field
-          placeholder={'email'}
-          name={'email'}
+          placeholder={'End Time'}
+          name={'endTime'}
           component={textInput}
+        //   validate={(val) => val ? undefined : 'An end time is required'}
         />
         <Field
-          placeholder={'Phone #'}
-          name={'phone'}
+          placeholder={'Activity'}
+          name={'activity'}
+          component={textInput}
+        />
+         <Field
+          placeholder={'Party Size'}
+          name={'partySize'}
           component={textInput}
           keyboardType={'numeric'}
-          validate={(val) => val ? undefined : 'Contact phone number is required'}
+        />
+         <Field
+          placeholder={'Notes'}
+          name={'notes'}
+          multiline={true}
+          component={textInput}
         />
       </ScrollView>         
     )
@@ -46,17 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default reduxForm({
-  form: 'contact',
-  validate: (values) => {
-    const errors = {};
-    const emailRegex = /\S+@\S+\.\S+/;
-    errors.email = !values.email
-      ? 'Email field is required'
-      : !emailRegex.test(values.email)
-      ? 'Email format is invalid'
-      : undefined;
-    
-    return errors;
-  }
-})(ContactForm);
+export default reduxForm({ form: 'route' })(TripForm);

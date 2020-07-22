@@ -4,12 +4,15 @@ import { Provider } from 'react-redux';
 import { store } from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LandingPage from './src/LandingPage/LandingPage';
-// import NavBar from './src/NavBar/NavBar';
-import Form from './src/Form/Form';
-// import { Map } from './src/Map/Map';
-// import { ActiveTrip } from './src/ActiveTrip/ActiveTrip';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+
+// App Imports
+import LandingPage from './src/LandingPage/LandingPage';
+// import NavBar from './src/NavBar/navBar';
+// import Form from './src/Form/form';
+import User from './src/User/User';
+// import Map from './src/Map/map';
+// import ActiveTrip from './src/ActiveTrip/activeTrip';
 
 
 const Stack = createStackNavigator();
@@ -30,8 +33,8 @@ class App extends Component {
               component={NavBar}
             /> */}
             <Stack.Screen
-              name='Form'
-              component={Form}
+              name='User'
+              component={User}
             />
             {/* <Stack.Screen
               name='Map'

@@ -1,55 +1,62 @@
-import React, { useState, useEffect } from "react";
+// Imports
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 import MapView from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
+// App Imports 
+import { setInitialLocation } from './Api/actions';
+import { render } from "react-dom";
+
+
 class Map extends Component {
 
   constructor(props) {
     super(props)
+
+  
+  }
+  
+  componentDidMount = async () => {
+
+    let { status } = await Location.requestPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    const startLat = location.coords.latitude;
+    const startLon = location.coords.longitude;
+    console.log('location', location);
+    this.props.setInitialLocation(startLat, startLon)
   }
 
+  render() {
+    return (
+      <View>
+        <MapView
+          style={{ height: "100%" }} 
+          showsUserLocation={true}
+        >
 
-  componentDidMount = async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      console.log('location', location);
-      
-      // setLocation(location);
-    }
-
-    render() {
-      return (
-        <View>
-          <MapView
-            style={{ height: "68%" }} 
-            showsUserLocation={true}
-          >
-
-          </MapView>
-        </View>
-      )
-    }
-
+        </MapView>
+      </View>
+    )
+  }
+ 
   };
 
 
 const mapStateToProps = (state) => {
   return {
-    user: state.form.user,
-    contact: state.form.contact,
-    route: state.form.route,
-    form: state.userInfo,
+    initialLocation: state.userRoute,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {  
   return {
-    setUserInfo: (userData, contactData, routeData) => dispatch(setUserInfo(userData, contactData, routeData)),
+    setInitialLocation: (startLat, startLon) => dispatch(setInitialLocation(startLat, startLon)),
   }
 }
 

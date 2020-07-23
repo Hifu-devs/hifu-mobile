@@ -21,7 +21,6 @@ import { setUserInfo } from '../Forms/Api/actions';
 
     constructor(props) {
         super(props)
-        console.log('props', props);
         
         this.state = {
           isOverviewRead: false,

@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import MapView from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Marker } from "react-native-maps";
-import { QuickView } from "../QuickView/QuickView";
 import * as Location from "expo-location";
 
 class Map extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
 
   componentDidMount = async () => {
       let { status } = await Location.requestPermissionsAsync();
@@ -17,6 +21,20 @@ class Map extends Component {
       
       // setLocation(location);
     }
+
+    render() {
+      return (
+        <View>
+          <MapView
+            style={{ height: "68%" }} 
+            showsUserLocation={true}
+          >
+
+          </MapView>
+        </View>
+      )
+    }
+
   };
 
 

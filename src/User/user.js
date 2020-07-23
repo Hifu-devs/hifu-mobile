@@ -50,7 +50,7 @@ import { setUserInfo } from '../Forms/Api/actions';
         const contactData = this.props.contact.values 
         const routeData = this.props.route.values  
         await this.props.setUserInfo(userData, contactData, routeData);
-        navigation.navigate('Map'); 
+        this.props.navigation.navigate('Map'); 
       }
     }
 

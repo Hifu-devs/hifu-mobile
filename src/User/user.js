@@ -21,9 +21,10 @@ import { setUserInfo } from '../Forms/Api/actions';
 
     constructor(props) {
         super(props)
-    
+        console.log('props', props);
+        
         this.state = {
-          isOverviewRead: true,
+          isOverviewRead: false,
           errorMessages: [],
         }
       }
@@ -49,6 +50,7 @@ import { setUserInfo } from '../Forms/Api/actions';
         const contactData = this.props.contact.values 
         const routeData = this.props.route.values  
         await this.props.setUserInfo(userData, contactData, routeData);
+        navigation.navigate('Map'); 
       }
     }
 

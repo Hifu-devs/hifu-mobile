@@ -12,8 +12,6 @@ import {textInput, genderDropDown, ethnicityDropDown} from './InputFields';
 
 class UserForm extends Component {
   render() {
-    const formStates = ['asyncValidating', 'dirty', 'pristine', 'valid', 'invalid', 'submitting',
-    'submitSucceeded', 'submitFailed'];
 
     return (
       <View style={styles.container}>
@@ -21,7 +19,7 @@ class UserForm extends Component {
           placeholder={'Name'}
           name={'name'}
           component={textInput}
-          validate={(val) => val ? undefined : 'Name field is required'}
+          validate={(val) => val ? undefined : 'User name field is required'}
         />
         <Field
           placeholder={'email'}
@@ -80,13 +78,11 @@ class UserForm extends Component {
         <Field
           name={'gender'}
           component={ genderDropDown }
-          iosHeader="Select one"
           mode="dropdown"
         />
         <Field
           name={'ethnicity'}
           component={ethnicityDropDown}
-          iosHeader="Select one"
           mode="dropdown"
         />
       </View>         
@@ -106,14 +102,16 @@ const styles = StyleSheet.create({
 export default reduxForm({
   form: 'user',
   validate: (values) => {
-    const errors = {};
+    let errors = {};
     const emailRegex = /\S+@\S+\.\S+/;
     errors.email = !values.email
-      ? 'Email field is required'
+      ? 'User email field is required'
       : !emailRegex.test(values.email)
       ? 'Email format is invalid'
-      : undefined;
+      : errors = {};
     
     return errors;
   }
 })(UserForm);
+
+// export default reduxForm({ form: 'user' })(UserForm);

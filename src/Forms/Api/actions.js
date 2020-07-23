@@ -1,9 +1,11 @@
 // Action Exports
-export const UPDATE_USER_FORM = 'UPDATE_USER_FORM';
+export const SET_USER_INFO = 'SET_USER_INFO';
 
-const updateUserForm = (inputs) => {
+export const setUserInfo = (userData, contactData, routeData) => {
     return {
-        type: 'UPDATE_USER_FORM',
-        inputs
+        type: 'SET_USER_INFO',
+        userData,
+        contactData,
+        routeData,
     }
 }

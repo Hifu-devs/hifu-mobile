@@ -14,6 +14,7 @@ import {
 import UserForm from '../Forms/UserForm';
 import ContactForm from '../Forms/ContactForm';
 import TripForm from '../Forms/TripForm';
+import { setUserInfo } from '../Forms/Api/actions';
 
 
   class User extends Component {
@@ -22,7 +23,8 @@ import TripForm from '../Forms/TripForm';
         super(props)
     
         this.state = {
-          isOverviewRead: false
+          isOverviewRead: true,
+          errorMessages: [],
         }
       }
     
@@ -31,6 +33,23 @@ import TripForm from '../Forms/TripForm';
       this.setState({
         isOverviewRead: true
       })
+    }
+
+    handleSaveForm = async () => {
+      const userErrors = this.props.user.syncErrors;
+      const contactErrors = this.props.contact.syncErrors;
+      const routeErrors = this.props.route.syncErrors;
+      if(userErrors || contactErrors || routeErrors){
+        const errors = Object.values(userErrors).concat(Object.values(contactErrors)).concat(Object.values(routeErrors));     
+        this.setState({
+          errorMessages: errors
+        })
+      } else {
+        const userData = this.props.user.values
+        const contactData = this.props.contact.values 
+        const routeData = this.props.route.values  
+        await this.props.setUserInfo(userData, contactData, routeData);
+      }
     }
 
     render() {
@@ -42,9 +61,26 @@ import TripForm from '../Forms/TripForm';
                     source={require('../../assets/Images/forest.png')}
                     style={styles.backgroundImg}
                 >
-                    <UserForm />
-                    <ContactForm /> 
-                    <TripForm />
+                  <View>
+                    <View>
+                      {this.state.errorMessages.length ? (
+                        this.state.errorMessages.map(error => {
+                          return (<Text style={styles.error}>{error}</Text>)
+                        })
+                      ): undefined }
+                    </View>
+                      <UserForm />
+                      <ContactForm /> 
+                      <TripForm />
+                  </View>
+                  <View>
+                    <TouchableOpacity 
+                    style={styles.button}
+                    onPress={() => this.handleSaveForm()}
+                    >
+                      <Text style={styles.buttonText}>Save</Text>
+                    </TouchableOpacity>
+                  </View>
                 </ImageBackground>
             </ScrollView>
             ) : (
@@ -106,14 +142,25 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 40,
   },
+  error: {
+    color: 'red',
+    fontSize: 40,
+  }
 });
 
-const mapStateToProps = (state) => ({
-    
-})
+const mapStateToProps = (state) => {
+  return {
+    user: state.form.user,
+    contact: state.form.contact,
+    route: state.form.route,
+    form: state.userInfo,
+  }
+}
 
-const mapDispatchToProps = (dispatch) => ({
-
-})
+const mapDispatchToProps = (dispatch) => {  
+  return {
+    setUserInfo: (userData, contactData, routeData) => dispatch(setUserInfo(userData, contactData, routeData)),
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

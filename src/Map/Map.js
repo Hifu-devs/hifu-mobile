@@ -1,7 +1,7 @@
 // Imports
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
@@ -18,7 +18,7 @@ class Map extends Component {
 
   
   }
-  
+
   componentDidMount = async () => {
 
     let { status } = await Location.requestPermissionsAsync();
@@ -29,6 +29,9 @@ class Map extends Component {
     const startLat = location.coords.latitude;
     const startLon = location.coords.longitude;
     console.log('location', location);
+    this.setState({
+      initialRegion: {}
+    })
     this.props.setInitialLocation(startLat, startLon)
   }
 
@@ -36,6 +39,13 @@ class Map extends Component {
     return (
       <View>
         <MapView
+          provider={ PROVIDER_GOOGLE }
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
           style={{ height: "100%" }} 
           showsUserLocation={true}
         >

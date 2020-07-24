@@ -17,7 +17,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.turing.hifu",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "GOOGLE_API_KEY"
+      }
+    },
+    "android": {
+      "package": "com.turing.hifu",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

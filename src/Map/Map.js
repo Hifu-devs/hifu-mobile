@@ -28,22 +28,19 @@ class Map extends Component {
       setErrorMsg('Permission to access location was denied');
     }
     let location = await Location.getCurrentPositionAsync({});
-    let wayPoint = [];
-    wayPoint.push(location.coords.latitude);
-    wayPoint.push(location.coords.longitude);
-    await this.props.setInitialLocation(wayPoint);
+    let lat = location.coords.latitude;
+    let lon = location.coords.longitude;
+    await this.props.setInitialLocation(lat, lon);
     await this.makeMarkers();
-    console.log('jjj', this.makeMarkers());
     this.setState({
       isLoading: false
     })
   }
 
   onMapPress = async (e) => {
-    let wayPoint = [];
-    wayPoint.push(e.nativeEvent.coordinate.latitude);
-    wayPoint.push(e.nativeEvent.coordinate.longitude);
-    await this.props.setWayPoint(wayPoint);
+    let lat = e.nativeEvent.coordinate.latitude;
+    let lon = e.nativeEvent.coordinate.longitude;
+    await this.props.setWayPoint(lat, lon);
     await this.makeMarkers();
   }
 
@@ -54,21 +51,23 @@ class Map extends Component {
   }
 
   makeMarkers = () => {
-     return this.props.wayPoints.map(point => {
+    return this.props.wayPoints[0].map(point => {
       return (
-        <Marker
-          key={Math.random()}
-          coordinate={{ latitude: point[0][0], longitude: point[0][1] }}
-        />
-      );
-    });
+          <Marker
+            key={Math.random()}
+            coordinate={{ latitude: point.latitude, longitude: point.longitude }}
+          />
+      )
+    })
   }
+
 
   render() {
     if (this.state.isLoading) {
       return <AppLoading />
     } else {
       const markers = this.makeMarkers();
+      console.log('marker', markers);
       return (
         <View>
           <MapView
@@ -96,14 +95,14 @@ class Map extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    wayPoints: [state.userRoute.route]
+    wayPoints: [state.userRoute.wayPoint]
   }
 }
 
 const mapDispatchToProps = (dispatch) => {  
   return {
-    setInitialLocation: (wayPoint) => dispatch(setInitialLocation(wayPoint)),
-    setWayPoint: (wayPoint) => dispatch(setWayPoint(wayPoint))
+    setInitialLocation: (lat, lon) => dispatch(setInitialLocation(lat, lon)),
+    setWayPoint: (lat, lon) => dispatch(setWayPoint(lat, lon))
   }
 }
 

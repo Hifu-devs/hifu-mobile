@@ -5,21 +5,23 @@ import {
 
 
 // Initial State
-// export const UserRoute = []
+const route = {
+    wayPoint: [],
+}
 
 
-export const userRoute = (state = [] , action) => {
+export const userRoute = (state = route, action) => {
     switch (action.type) {
         case 'SET_INITIAL_LOCATION':
-            return { 
-                route: [action.wayPoint]
+            return {
+               wayPoint: [{latitude: action.lat, longitude: action.lon}]
             }
-
+            
         case 'SET_WAY_POINT':
-            return { 
+            return {
                 ...state,
-                route: [action.wayPoint]
-            }
+                wayPoint: [...state.wayPoint, {latitude: action.lat, longitude: action.lon}]
+             }
         default:
         return state;
     }

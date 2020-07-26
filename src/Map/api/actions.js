@@ -2,16 +2,18 @@
 export const SET_INITIAL_LOCATION = 'SET_INITIAL_LOCATION';
 export const SET_WAY_POINT = 'SET_WAY_POINT';
 
-export const setInitialLocation = (wayPoint) => {
+export const setInitialLocation = (lat, lon) => {
     return {
         type: 'SET_INITIAL_LOCATION',
-        wayPoint
+        lat, 
+        lon
     }
 }
 
-export const setWayPoint = (wayPoint) => {
+export const setWayPoint = (lat, lon) => {
     return{
         type: 'SET_WAY_POINT',
-        wayPoint
+        lat, 
+        lon
     }
 }

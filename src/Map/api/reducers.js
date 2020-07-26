@@ -1,20 +1,24 @@
 import { 
     SET_INITIAL_LOCATION,  
+    SET_WAY_POINT,
 } from './actions';
 
 
 // Initial State
-export const route = {
-    initialLocation: '',
-    firstWaypoint: '',
-    secondWaypoint: ''
-}
+// export const UserRoute = []
 
-export const userRoute = (state = route , action) => {
+
+export const userRoute = (state = [] , action) => {
     switch (action.type) {
         case 'SET_INITIAL_LOCATION':
-            return {
-                initialLocation: [action.lat, action.lon]
+            return { 
+                route: [action.wayPoint]
+            }
+
+        case 'SET_WAY_POINT':
+            return { 
+                ...state,
+                route: [action.wayPoint]
             }
         default:
         return state;

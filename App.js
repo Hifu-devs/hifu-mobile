@@ -12,6 +12,7 @@ import User from './src/User/User';
 import Map from './src/Map/Map';
 // import ActiveTrip from './src/ActiveTrip/activeTrip';
 
+console.disableYellowBox = true;
 
 const Stack = createStackNavigator();
 

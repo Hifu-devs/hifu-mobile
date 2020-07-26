@@ -30,7 +30,7 @@ import { setUserInfo } from '../Forms/Api/actions';
     
       
     closeInfoWindow = () => {
-      this.setState({
+      ({
         isOverviewRead: true
       })
     }

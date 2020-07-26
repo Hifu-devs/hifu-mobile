@@ -3,20 +3,22 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Marker } from "react-native-maps";
+import { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
+import { AppLoading } from 'expo';
 
 // App Imports 
-import { setInitialLocation } from './Api/actions';
-import { render } from "react-dom";
+import { setInitialLocation, setWayPoint } from './Api/actions';
 
 
 class Map extends Component {
 
   constructor(props) {
     super(props)
-
-  
+    this.state = {
+      isLoading: true,
+      region: {},        
+    }
   }
 
   componentDidMount = async () => {
@@ -26,47 +28,82 @@ class Map extends Component {
       setErrorMsg('Permission to access location was denied');
     }
     let location = await Location.getCurrentPositionAsync({});
-    const startLat = location.coords.latitude;
-    const startLon = location.coords.longitude;
-    console.log('location', location);
+    let wayPoint = [];
+    wayPoint.push(location.coords.latitude);
+    wayPoint.push(location.coords.longitude);
+    await this.props.setInitialLocation(wayPoint);
+    await this.makeMarkers();
+    console.log('jjj', this.makeMarkers());
     this.setState({
-      initialRegion: {}
+      isLoading: false
     })
-    this.props.setInitialLocation(startLat, startLon)
+  }
+
+  onMapPress = async (e) => {
+    let wayPoint = [];
+    wayPoint.push(e.nativeEvent.coordinate.latitude);
+    wayPoint.push(e.nativeEvent.coordinate.longitude);
+    await this.props.setWayPoint(wayPoint);
+    await this.makeMarkers();
+  }
+
+  onRegionChange = (region) => {
+    this.setState({
+      region: region
+    })
+  }
+
+  makeMarkers = () => {
+     return this.props.wayPoints.map(point => {
+      return (
+        <Marker
+          key={Math.random()}
+          coordinate={{ latitude: point[0][0], longitude: point[0][1] }}
+        />
+      );
+    });
   }
 
   render() {
-    return (
-      <View>
-        <MapView
-          provider={ PROVIDER_GOOGLE }
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-          }}
-          style={{ height: "100%" }} 
-          showsUserLocation={true}
-        >
-
-        </MapView>
-      </View>
-    )
-  }
+    if (this.state.isLoading) {
+      return <AppLoading />
+    } else {
+      const markers = this.makeMarkers();
+      return (
+        <View>
+          <MapView
+            provider={ PROVIDER_GOOGLE }
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }}
+            style={{ height: "100%" }} 
+            showsUserLocation={true}
+            onPress={(e) => this.onMapPress(e)}
+            onRegionChange={this.onRegionChange.bind(this)}
+          >
+            {markers}
+          </MapView>
+        </View>
+      )
+    }
  
   };
+}
 
 
 const mapStateToProps = (state) => {
   return {
-    initialLocation: state.userRoute,
+    wayPoints: [state.userRoute.route]
   }
 }
 
 const mapDispatchToProps = (dispatch) => {  
   return {
-    setInitialLocation: (startLat, startLon) => dispatch(setInitialLocation(startLat, startLon)),
+    setInitialLocation: (wayPoint) => dispatch(setInitialLocation(wayPoint)),
+    setWayPoint: (wayPoint) => dispatch(setWayPoint(wayPoint))
   }
 }
 

@@ -1,15 +1,19 @@
 // Imports
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Marker, Callout } from "react-native-maps";
-import * as Location from "expo-location";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Marker, Callout } from 'react-native-maps';
+import * as Location from 'expo-location';
 import { AppLoading } from 'expo';
+import MapViewDirections from 'react-native-maps-directions';
+// import getEnvVars from '../../environment';
+// const { GOOGLE_API_KEY } = getEnvVars();
 
 // App Imports 
 import { setInitialLocation, setWayPoint } from './Api/actions';
 
+console.disableYellowBox = true;
 
 class Map extends Component {
 
@@ -22,6 +26,7 @@ class Map extends Component {
   }
 
   componentDidMount = async () => {
+    console.log('getEnvVars', getEnvVars);
 
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {
@@ -67,7 +72,17 @@ class Map extends Component {
       return <AppLoading />
     } else {
       const markers = this.makeMarkers();
-      console.log('marker', markers);
+      console.log('markers', markers);
+
+    const origin = markers[0].props.coordinate;
+    
+    // if(markers.length >= 2) {
+    //   let destination = markers[1].props.coordinate;
+    // } else {
+    //   let destination = markers[0].props.coordinate;
+    // }
+      const destination = markers[0].props.coordinate ;
+
       return (
         <View>
           <MapView
@@ -78,11 +93,37 @@ class Map extends Component {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421
             }}
-            style={{ height: "100%" }} 
+            style={{ height: '100%' }} 
             showsUserLocation={true}
             onPress={(e) => this.onMapPress(e)}
             onRegionChange={this.onRegionChange.bind(this)}
           >
+            <MapViewDirections
+              origin={origin}
+              destination={destination || null}
+              apikey={}
+              strokeWidth={3}
+              strokeColor="hotpink"
+              onStart={(params) => {
+                console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
+              }}
+              onReady={result => {
+                console.log(`Distance: ${result.distance} km`)
+                console.log(`Duration: ${result.duration} min.`)
+  
+                this.mapView.fitToCoordinates(result.coordinates, {
+                  edgePadding: {
+                    right: (width / 20),
+                    bottom: (height / 20),
+                    left: (width / 20),
+                    top: (height / 20),
+                  }
+                });
+              }}
+              onError={(errorMessage) => {
+                console.log('GOT AN ERROR');
+              }}
+            />
             {markers}
           </MapView>
         </View>

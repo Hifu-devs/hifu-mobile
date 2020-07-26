@@ -18,28 +18,3 @@ export const userForm = (state = {} , action) => {
         return state;
     }
 }
-
-
-// export const contact = (state = userForm, action) => {
-//     switch (action.type) {
-//         case 'SET_CONTACT_INFO':
-//             return {
-//                 ...state,
-//                 [action.key]: action.inputs
-//             }
-//         default:
-//         return state;
-//     }
-// }
-// export const route = (state = userForm, action) => {
-//     switch (action.type) {
-//         case 'SET_ROUTE_INFO':
-//             return {
-//                 ...state,
-//                 [action.key]: action.inputs
-//             }
-//         default:
-//         return state;
-//     }
-// }
-

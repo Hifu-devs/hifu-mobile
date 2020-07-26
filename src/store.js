@@ -10,9 +10,11 @@ import {
 
 // App Imports 
 import * as userInfo from './Forms/Api/reducers';
+import * as userRoute from './Map/Api/reducers';
 
 // Root Reducer
 export const rootReducer = combineReducers({
+  ...userRoute,
   ...userInfo,
   form: formReducer
 })

@@ -21,16 +21,16 @@ import { setUserInfo } from '../Forms/Api/actions';
 
     constructor(props) {
         super(props)
-    
+        
         this.state = {
-          isOverviewRead: true,
+          isOverviewRead: false,
           errorMessages: [],
         }
       }
     
       
     closeInfoWindow = () => {
-      this.setState({
+      ({
         isOverviewRead: true
       })
     }
@@ -49,6 +49,7 @@ import { setUserInfo } from '../Forms/Api/actions';
         const contactData = this.props.contact.values 
         const routeData = this.props.route.values  
         await this.props.setUserInfo(userData, contactData, routeData);
+        this.props.navigation.navigate('Map'); 
       }
     }
 

@@ -1,15 +1,19 @@
 // Imports
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Marker, Callout } from "react-native-maps";
-import * as Location from "expo-location";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Marker, Callout } from 'react-native-maps';
+import * as Location from 'expo-location';
 import { AppLoading } from 'expo';
+import MapViewDirections from 'react-native-maps-directions';
+// import getEnvVars from '../../environment';
+// const { GOOGLE_API_KEY } = getEnvVars();
 
 // App Imports 
 import { setInitialLocation, setWayPoint } from './Api/actions';
 
+console.disableYellowBox = true;
 
 class Map extends Component {
 
@@ -22,28 +26,26 @@ class Map extends Component {
   }
 
   componentDidMount = async () => {
+    console.log('getEnvVars', getEnvVars);
 
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {
       setErrorMsg('Permission to access location was denied');
     }
     let location = await Location.getCurrentPositionAsync({});
-    let wayPoint = [];
-    wayPoint.push(location.coords.latitude);
-    wayPoint.push(location.coords.longitude);
-    await this.props.setInitialLocation(wayPoint);
+    let lat = location.coords.latitude;
+    let lon = location.coords.longitude;
+    await this.props.setInitialLocation(lat, lon);
     await this.makeMarkers();
-    console.log('jjj', this.makeMarkers());
     this.setState({
       isLoading: false
     })
   }
 
   onMapPress = async (e) => {
-    let wayPoint = [];
-    wayPoint.push(e.nativeEvent.coordinate.latitude);
-    wayPoint.push(e.nativeEvent.coordinate.longitude);
-    await this.props.setWayPoint(wayPoint);
+    let lat = e.nativeEvent.coordinate.latitude;
+    let lon = e.nativeEvent.coordinate.longitude;
+    await this.props.setWayPoint(lat, lon);
     await this.makeMarkers();
   }
 
@@ -54,21 +56,33 @@ class Map extends Component {
   }
 
   makeMarkers = () => {
-     return this.props.wayPoints.map(point => {
+    return this.props.wayPoints[0].map(point => {
       return (
-        <Marker
-          key={Math.random()}
-          coordinate={{ latitude: point[0][0], longitude: point[0][1] }}
-        />
-      );
-    });
+          <Marker
+            key={Math.random()}
+            coordinate={{ latitude: point.latitude, longitude: point.longitude }}
+          />
+      )
+    })
   }
+
 
   render() {
     if (this.state.isLoading) {
       return <AppLoading />
     } else {
       const markers = this.makeMarkers();
+      console.log('markers', markers);
+
+    const origin = markers[0].props.coordinate;
+    
+    // if(markers.length >= 2) {
+    //   let destination = markers[1].props.coordinate;
+    // } else {
+    //   let destination = markers[0].props.coordinate;
+    // }
+      const destination = markers[0].props.coordinate ;
+
       return (
         <View>
           <MapView
@@ -79,11 +93,37 @@ class Map extends Component {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421
             }}
-            style={{ height: "100%" }} 
+            style={{ height: '100%' }} 
             showsUserLocation={true}
             onPress={(e) => this.onMapPress(e)}
             onRegionChange={this.onRegionChange.bind(this)}
           >
+            <MapViewDirections
+              origin={origin}
+              destination={destination || null}
+              apikey={}
+              strokeWidth={3}
+              strokeColor="hotpink"
+              onStart={(params) => {
+                console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
+              }}
+              onReady={result => {
+                console.log(`Distance: ${result.distance} km`)
+                console.log(`Duration: ${result.duration} min.`)
+  
+                this.mapView.fitToCoordinates(result.coordinates, {
+                  edgePadding: {
+                    right: (width / 20),
+                    bottom: (height / 20),
+                    left: (width / 20),
+                    top: (height / 20),
+                  }
+                });
+              }}
+              onError={(errorMessage) => {
+                console.log('GOT AN ERROR');
+              }}
+            />
             {markers}
           </MapView>
         </View>
@@ -96,14 +136,14 @@ class Map extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    wayPoints: [state.userRoute.route]
+    wayPoints: [state.userRoute.wayPoint]
   }
 }
 
 const mapDispatchToProps = (dispatch) => {  
   return {
-    setInitialLocation: (wayPoint) => dispatch(setInitialLocation(wayPoint)),
-    setWayPoint: (wayPoint) => dispatch(setWayPoint(wayPoint))
+    setInitialLocation: (lat, lon) => dispatch(setInitialLocation(lat, lon)),
+    setWayPoint: (lat, lon) => dispatch(setWayPoint(lat, lon))
   }
 }
 

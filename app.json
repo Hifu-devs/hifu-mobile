@@ -1,5 +1,8 @@
 {
   "expo": {
+    "extra": {
+      "test": "prod"
+   },
     "name": "HIFU",
     "slug": "HIFU",
     "version": "1.0.0",

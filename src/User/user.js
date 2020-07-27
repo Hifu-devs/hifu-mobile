@@ -66,7 +66,11 @@ import { setUserInfo } from '../Forms/Api/actions';
                     <View>
                       {this.state.errorMessages.length ? (
                         this.state.errorMessages.map(error => {
-                          return (<Text style={styles.error}>{error}</Text>)
+                          return (<Text 
+                              key={Math.random()} 
+                              style={styles.error}>
+                                {error}
+                                </Text>)
                         })
                       ): undefined }
                     </View>

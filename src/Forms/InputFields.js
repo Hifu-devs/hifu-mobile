@@ -1,10 +1,53 @@
-import React from 'react';
+import React, { Component }  from 'react';
+import { connect } from 'react-redux';
 import { 
     TextInput, 
-    View, 
     Text,
+    View, 
     Picker, 
+    TouchableOpacity,
+    Button
 } from 'react-native';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+
+export class DateInputField extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDateTimePickerVisible: false
+    };
+  }
+ 
+  showDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: true });
+  };
+ 
+  hideDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: false });
+  };
+ 
+  handleDatePicked = (date) => {
+    console.log('A date has been picked: ', date);
+    this.props.input.onChange(date);
+    this.hideDateTimePicker();
+  };
+ 
+  render() {
+    return (
+      <>
+        <Button title='Show DatePicker' onPress={this.showDateTimePicker} />
+        <DateTimePicker
+          locale='en_GB'
+          mode='datetime'
+          value={new Date()}
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={this.handleDatePicked}
+          onCancel={this.hideDateTimePicker}
+        />
+      </>
+    );
+  }
+}
 
 export function textInput(props) {
   const { input, ...inputProps } = props;

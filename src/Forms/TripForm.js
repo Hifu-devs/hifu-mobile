@@ -3,26 +3,27 @@ import { reduxForm, Field } from 'redux-form';
 import {
     StyleSheet,
     ScrollView,
+    Button,
   } from 'react-native';
 
+
 // App Imports
-import { textInput } from './InputFields';
+import { textInput, DateInputField } from './InputFields';
 
 class TripForm extends Component {
-  render() {
 
+  render() {
     return (
       <ScrollView style={styles.container}>
         <Field
-          placeholder={'Start Time'}
-          name={'startTime'}
-          component={textInput}
+          placeholder={'Start Date/ Time'}
+          name={'startDate'}
+          component={DateInputField}
         />
         <Field
-          placeholder={'End Time'}
-          name={'endTime'}
-          component={textInput}
-        //   validate={(val) => val ? undefined : 'An end time is required'}
+          placeholder={'End Date/ Time'}
+          name={'endDate'}
+          component={DateInputField}
         />
         <Field
           placeholder={'Activity'}

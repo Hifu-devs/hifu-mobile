@@ -11,7 +11,7 @@ import {
 
 
 // App Imports
-import { setLocation } from '../Map/Api/actions'
+import { setLocation, setRegion } from '../Map/Api/actions'
 import * as GOOGLE_API_KEY from '../../ENV';
 const apiKey = GOOGLE_API_KEY.default;
 
@@ -28,10 +28,15 @@ class Search extends Component {
           googleApiKey={apiKey}
           placeHolder={'Search'}
           language={'en-US'}
-          onSelect={place => {
-            // console.log('first', this.props.wayPoints);
-              this.props.setLocation(place.result.geometry.location.lat, place.result.geometry.location.lng)
-          //     console.log('second ', this.props.wayPoints);
+          onSelect={async (place) => {
+            await this.props.setLocation(place.result.geometry.location.lat, place.result.geometry.location.lng);
+            let region = await {
+              latitude:  this.props.wayPoints[0][0].latitude,
+              longitude: this.props.wayPoints[0][0].longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }
+            this.props.setRegion(region)
           }}
         />
     );
@@ -53,7 +58,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {  
   return {
-    setLocation: (lat, lon) => dispatch(setLocation(lat, lon))
+    setLocation: (lat, lon) => dispatch(setLocation(lat, lon)),
+    setRegion: (region) => dispatch(setRegion(region))
   }
 }
 

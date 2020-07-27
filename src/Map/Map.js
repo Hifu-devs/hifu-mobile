@@ -35,14 +35,13 @@ class Map extends Component {
     let lon = await location.coords.longitude;
     await this.props.setLocation(lat, lon);
     await this.makeMarkers();
-    const region = await {
+    let region = await {
         latitude: this.props.wayPoints[0][0].latitude,
         longitude: this.props.wayPoints[0][0].longitude,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
     }
     await this.props.setRegion(region);
-    console.log('test', this.props.region);
     this.setState({
       isLoading: false
     })
@@ -57,7 +56,6 @@ class Map extends Component {
   }
 
   makeMarkers = () => {
-    console.log('markers', this.props.wayPoints);
 
     return this.props.wayPoints[0].map(point => {
       return (
@@ -69,16 +67,14 @@ class Map extends Component {
     })
   }
 
-  handleRegionChange = async (lat, lon) => {
-    // let region = await {
-    //   latitude: lat,
-    //   longitude: lon,
-    //   latitudeDelta: 0.0922,
-    //   longitudeDelta: 0.0421
-    // }
-    // this.setState({
-    //   region: region,
-    // })
+  handleRegionChange = async () => {
+    let region = await {
+      latitude:  this.props.wayPoints[0][0].latitude,
+      longitude: this.props.wayPoints[0][0].longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
+    }
+    this.props.setRegion(region)
   }
 
 
@@ -87,7 +83,7 @@ class Map extends Component {
       return <AppLoading />
     } else {
       const markers = this.makeMarkers();
-      console.log('this.props.region', this.props.wayPoint);
+     
       return (
         <View keyboardShouldPersistTaps='handled'>
           <MapView
@@ -97,11 +93,9 @@ class Map extends Component {
             showsUserLocation={true}
             onPress={(e) => this.onMapPress(e)}
             zoomEnabled={true}
-            zoomControlEnabled={true}
-            // onRegionChangeComplete={() => this.handleRegionChange(this.props.wayPoints[0][0].latitude, this.props.wayPoints[0][0].longitude)}
-            // onMapReady={() => this.goToInitialRegion(this)}         
+            zoomControlEnabled={true}    
           >
-            {/* {this.props.wayPoints[0].length >= 2 ?
+            {this.props.wayPoints[0].length >= 2 ?
              <MapView.Polyline
               coordinates={this.props.wayPoints[0]}
               strokeWidth={5}
@@ -109,7 +103,7 @@ class Map extends Component {
            />
             : null  
             }
-            <SearchBar /> */}
+            <SearchBar />
             {markers}
           </MapView>
         </View>

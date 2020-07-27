@@ -1,4 +1,3 @@
-// import { GOOGLE_API_KEY } from 'inline-dotenv'
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import {
@@ -8,8 +7,13 @@ import {
     Image,
     TouchableOpacity,
   } from 'react-native';
-  // import { SearchBar } from 'react-native-elements';
-  import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+  import PlacesInput from 'react-native-places-input';
+
+
+// App Imports
+import { setLocation, setRegion } from '../Map/Api/actions'
+import * as GOOGLE_API_KEY from '../../ENV';
+const apiKey = GOOGLE_API_KEY.default;
 
 class Search extends Component {
   constructor(props) {
@@ -19,40 +23,43 @@ class Search extends Component {
 
   render() {
     return (
-    //   <GooglePlacesAutocomplete
-    //   placeholder='Search'
-    //   onPress={(data, details = null) => {
-    //     // 'details' is provided when fetchDetails = true
-    //     console.log(data, details);
-    //   }}
-    //   query={{
-    //     key: 'GOOGLE_API_KEY',
-    //     language: 'en',
-    //   }}
-    // />
-    <View>
-      <Text>Hey</Text>
-    </View>
+        <PlacesInput 
+          key={Math.random()}
+          googleApiKey={apiKey}
+          placeHolder={'Search'}
+          language={'en-US'}
+          onSelect={async (place) => {
+            await this.props.setLocation(place.result.geometry.location.lat, place.result.geometry.location.lng);
+            let region = await {
+              latitude:  this.props.wayPoints[0][0].latitude,
+              longitude: this.props.wayPoints[0][0].longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }
+            this.props.setRegion(region)
+          }}
+        />
     );
   }
 }
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   searchContainer: {
-    borderBottomColor: "#ECECEC",
-    borderBottomWidth: 2
+    borderBottomColor: '#ECECEC',
+    borderBottomWidth: 2,
   }
 })
 
 const mapStateToProps = (state) => {
   return {
-   state
+    wayPoints: [state.userRoute.wayPoint]
   }
 }
 
 const mapDispatchToProps = (dispatch) => {  
   return {
-
+    setLocation: (lat, lon) => dispatch(setLocation(lat, lon)),
+    setRegion: (region) => dispatch(setRegion(region))
   }
 }
 

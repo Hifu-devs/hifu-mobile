@@ -56,14 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default reduxForm({
-    form: 'route',
-    validate: (values) => {
-      let errors = {};
-      errors.startTime = !values.startTime
-        ? 'A start time is required'
-        : errors = {};
-      
-      return errors;
-    }
-  })(TripForm);
+export default reduxForm({form: 'route'})(TripForm);

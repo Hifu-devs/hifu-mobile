@@ -88,8 +88,6 @@ export function ethnicityDropDown({ input: { onChange, value, ...inputProps }, c
       onValueChange={ value => onChange(value) }
       { ...inputProps }
       { ...pickerProps }
-      style={{backgroundColor: '#fff'}}
-      mode={Picker.MODE_DROPDOWN}
     >
         <Picker.Item label='Ethnicity' value='' />
         <Picker.Item 

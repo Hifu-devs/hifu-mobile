@@ -45,9 +45,10 @@ import { setUserInfo } from '../Forms/Api/actions';
           errorMessages: errors
         })
       } else {
-        const userData = this.props.user.values
-        const contactData = this.props.contact.values 
-        const routeData = this.props.route.values  
+        const userData = await this.props.user.values
+        const contactData = await this.props.contact.values 
+        const routeData = await this.props.route.values  
+        console.log('route', routeData);
         await this.props.setUserInfo(userData, contactData, routeData);
         this.props.navigation.navigate('Map'); 
       }

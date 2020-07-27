@@ -11,7 +11,6 @@ import {
 // App Imports 
 import * as userInfo from './Forms/Api/reducers';
 import * as userRoute from './Map/Api/reducers';
-import * as searchedRoute from './Search/Api/reducers';
 
 // Root Reducer
 export const rootReducer = combineReducers({

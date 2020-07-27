@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Map'>
+          <Stack.Navigator initialRouteName='LandingPage'>
             <Stack.Screen 
               name='Home' 
               component={LandingPage} 

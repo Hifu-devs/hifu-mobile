@@ -2,14 +2,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, AnimatedRegion } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Marker, Callout } from 'react-native-maps';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity } from 'react-native';
+import { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { AppLoading } from 'expo';
 
 // App Imports 
 import SearchBar from '../Search/Search';
 import { setLocation, setWayPoint, setRegion } from './Api/actions';
+import { setRouteInfo } from '../User/Api/actions';
 import * as GOOGLE_API_KEY from '../../ENV';
 const apiKey = GOOGLE_API_KEY.default;
 
@@ -44,11 +49,11 @@ class Map extends Component {
     await this.props.setRegion(region);
     this.setState({
       isLoading: false
-    })
-  
+    }) 
   }
 
   onMapPress = async (e) => {
+
     let lat = e.nativeEvent.coordinate.latitude;
     let lon = e.nativeEvent.coordinate.longitude;
     await this.props.setWayPoint(lat, lon);
@@ -68,6 +73,7 @@ class Map extends Component {
   }
 
   handleRegionChange = async () => {
+
     let region = await {
       latitude:  this.props.wayPoints[0][0].latitude,
       longitude: this.props.wayPoints[0][0].longitude,
@@ -75,6 +81,17 @@ class Map extends Component {
       longitudeDelta: 0.0421
     }
     this.props.setRegion(region)
+  }
+
+  addWaypointsUserform = async (waypoints) => {
+    console.log('hey');
+    console.log('waypoints', waypoints);
+    await this.props.setRouteInfo(waypoints);
+    console.log('userForm', this.props.userForm);
+  }
+
+  handleSubmitUserForm = async () => {
+
   }
 
 
@@ -89,7 +106,7 @@ class Map extends Component {
           <MapView
             provider={ PROVIDER_GOOGLE }
             region={this.props.region}
-            style={{ height: '100%' }} 
+            style={styles.map} 
             showsUserLocation={true}
             onPress={(e) => this.onMapPress(e)}
             zoomEnabled={true}
@@ -105,6 +122,12 @@ class Map extends Component {
             }
             <SearchBar />
             {markers}
+            <TouchableOpacity 
+                style={styles.button}
+                onPress={() => this.addWaypointsUserform(this.props.wayPoints[0])}
+              >
+              <Text style={styles.buttonText}>{'Submit'.toUpperCase()}</Text>
+            </TouchableOpacity>
           </MapView>
         </View>
       )
@@ -113,11 +136,37 @@ class Map extends Component {
   };
 }
 
+const styles = StyleSheet.create({
+  map: {
+    height: '100%',
+  },
+  button: {
+    position: 'absolute',
+    bottom: 0,
+    left: '28%',
+    borderRadius: 40,
+    backgroundColor: '#3A6360',
+    marginBottom: 30,
+    width: 175,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.9,
+    shadowRadius: 3,
+  },
+  buttonText: {
+    color: '#fff',
+    padding: 15,
+    textAlign: 'center',
+    fontSize: 24,
+  }, 
+})
+
 
 const mapStateToProps = (state) => {
   return {
     wayPoints: [state.userRoute.wayPoint],
-    region: state.userRoute.region
+    region: state.userRoute.region,
+    userForm: state.userForm
   }
 }
 
@@ -125,7 +174,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setLocation: (lat, lon) => dispatch(setLocation(lat, lon)),
     setWayPoint: (lat, lon) => dispatch(setWayPoint(lat, lon)),
-    setRegion: (region) => dispatch(setRegion(region))
+    setRegion: (region) => dispatch(setRegion(region)),
+    setRouteInfo: (waypoints) => dispatch(setRouteInfo(waypoints))
   }
 }
 

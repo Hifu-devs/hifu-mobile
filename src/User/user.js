@@ -14,7 +14,7 @@ import {
 import UserForm from '../Forms/UserForm';
 import ContactForm from '../Forms/ContactForm';
 import TripForm from '../Forms/TripForm';
-import { setUserInfo } from '../Forms/Api/actions';
+import { setUserInfo } from './Api/actions';
 
 
   class User extends Component {
@@ -30,7 +30,7 @@ import { setUserInfo } from '../Forms/Api/actions';
     
       
     closeInfoWindow = () => {
-      ({
+      this.setState({
         isOverviewRead: true
       })
     }
@@ -45,9 +45,10 @@ import { setUserInfo } from '../Forms/Api/actions';
           errorMessages: errors
         })
       } else {
-        const userData = this.props.user.values
-        const contactData = this.props.contact.values 
-        const routeData = this.props.route.values  
+        const userData = await this.props.user.values
+        const contactData = await this.props.contact.values 
+        const routeData = await this.props.route.values  
+        console.log('route', routeData);
         await this.props.setUserInfo(userData, contactData, routeData);
         this.props.navigation.navigate('Map'); 
       }
@@ -66,7 +67,11 @@ import { setUserInfo } from '../Forms/Api/actions';
                     <View>
                       {this.state.errorMessages.length ? (
                         this.state.errorMessages.map(error => {
-                          return (<Text style={styles.error}>{error}</Text>)
+                          return (<Text 
+                              key={Math.random()} 
+                              style={styles.error}>
+                                {error}
+                                </Text>)
                         })
                       ): undefined }
                     </View>

@@ -25,10 +25,12 @@ class UserForm extends Component {
           validate={(val) => val ? undefined : 'Name field is required'}
         />
         <Field
+          placeholder={'email@gmail.com'}
           name={'email'}
           component={textInput}
         />
         <Field
+          placeholder={'Phone #'}
           name={'phone'}
           component={textInput}
         />

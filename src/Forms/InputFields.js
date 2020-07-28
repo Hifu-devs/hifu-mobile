@@ -5,7 +5,8 @@ import {
     View, 
     Picker, 
     Button,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -33,9 +34,22 @@ export class DateInputField extends Component {
   };
  
   render() {
+
     return (
       <>
-        <Button title={this.props.input.name} onPress={this.showDateTimePicker} />
+        <View>
+          <Text style={styles.dateHeader}>{this.props.input.name}</Text>
+          <Text style={styles.requiredText}>Required*</Text>
+          <TouchableOpacity
+            style={styles.calendarIcon} 
+            title={this.props.input.name} 
+            onPress={this.showDateTimePicker}
+          >
+            <View>
+              <Icon name="calendar" size={60} color="#900" />
+            </View>
+          </TouchableOpacity>
+        </View>
         <DateTimePicker
           locale='en_GB'
           mode='datetime'
@@ -50,7 +64,7 @@ export class DateInputField extends Component {
 }
 
 export function textInput(props) {
-  // console.log('props', props);
+
   const { meta, input, ...inputProps } = props;
 
   return (
@@ -63,6 +77,7 @@ export function textInput(props) {
         // value={input.value}
         label={input.name}
         error={meta.error}
+        errorColor='#900'
         activeColor='#3A6360'
         />
     </View>
@@ -72,7 +87,7 @@ export function textInput(props) {
 export function genderDropDown({ input: { onChange, value, ...inputProps }, children, ...pickerProps }){
   return(
     <View>
-      <Text style={styles.inputHeader}>Gender</Text>
+      <Text style={styles.pickerHeader}>Gender</Text>
       <Picker
         selectedValue={ value }
         onValueChange={ value => onChange(value) }
@@ -90,7 +105,7 @@ export function genderDropDown({ input: { onChange, value, ...inputProps }, chil
 export function ethnicityDropDown({ input: { onChange, value, ...inputProps }, children, ...pickerProps }){
   return(
     <View>
-      <Text style={styles.inputHeader}>Ethnicity</Text>
+      <Text style={styles.pickerHeader}>Ethnicity</Text>
       <Picker
         style={styles.picker}
         selectedValue={ value }
@@ -123,7 +138,7 @@ export function ethnicityDropDown({ input: { onChange, value, ...inputProps }, c
 
 
 const styles = StyleSheet.create({
-  inputHeader: {
+  pickerHeader: {
     fontFamily: 'OpenSansCondensed_300Light',
     fontSize: 32,
     color: '#fff',
@@ -133,7 +148,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#3A6360',
     width: '100%'
   },
-  dateTime: {
-
+  dateHeader: {
+    fontFamily: 'OpenSansCondensed_300Light',
+    fontSize: 21,
+  },
+  calendarIcon: {
+    marginLeft: 25,
+    marginTop: 10
+  },
+  requiredText: {
+    fontFamily: 'OpenSansCondensed_300Light',
+    fontSize: 18,
+    color: '#900',
+    textAlign: 'center'
   }
 });

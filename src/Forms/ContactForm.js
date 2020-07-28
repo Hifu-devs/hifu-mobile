@@ -18,12 +18,11 @@ class ContactForm extends Component {
           <Text style={styles.headerText}>Emergency Contact:</Text>
         </View>
         <Field
-          placeholder={'Name'}
           name={'name'}
           component={textInput}
         />
         <Field
-          placeholder={'email'}
+          placeholder={'email@gmail.com'}
           name={'email'}
           component={textInput}
         />
@@ -52,6 +51,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#3A6360',
     width: '100%',
     marginBottom: 20,
+    marginTop: 5
   },
   headerText: {
     fontFamily: 'OpenSansCondensed_300Light',

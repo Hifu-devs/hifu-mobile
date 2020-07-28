@@ -18,14 +18,16 @@ class TripForm extends Component {
         <View style={styles.sectionHeader}>
           <Text style={styles.headerText}>Trip Information:</Text>
         </View>
-        <Field
-          name={'startDate'}
-          component={DateInputField}
-        />
-        <Field
-          name={'endDate'}
-          component={DateInputField}
-        />
+        <View style={styles.dateTimeField}>
+          <Field
+            name={'Start Time & Date'}
+            component={DateInputField}
+          />
+          <Field
+            name={'End Time & Date'}
+            component={DateInputField}
+          />
+        </View>
         <Field
           name={'activity'}
           component={textInput}
@@ -63,6 +65,12 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: 'OpenSansCondensed_300Light',
     fontSize: 32,
+  },
+  dateTimeField: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    marginBottom: 20,
   }
 });
 

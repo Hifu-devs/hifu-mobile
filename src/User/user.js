@@ -24,7 +24,7 @@ import { setUserInfo } from './Api/actions';
         
         this.state = {
           isOverviewRead: false,
-          errorMessages: [],
+          errorMessage: null,
         }
       }
     
@@ -39,11 +39,11 @@ import { setUserInfo } from './Api/actions';
       const userErrors = this.props.user.syncErrors;
       const contactErrors = this.props.contact.syncErrors;
       const routeErrors = this.props.route.syncErrors;
-      if(userErrors || contactErrors || routeErrors){
-        const errors = Object.values(userErrors).concat(Object.values(contactErrors)).concat(Object.values(routeErrors));     
+      if(userErrors || contactErrors || routeErrors){     
         this.setState({
-          errorMessages: errors
-        })
+          errorMessage: 'Please fill out all required fields'
+        });
+        this.refs._scrollView.scrollTo(0)
       } else {
         const userData = await this.props.user.values
         const contactData = await this.props.contact.values 
@@ -58,21 +58,26 @@ import { setUserInfo } from './Api/actions';
         return (
           <View style={styles.container}>
             {this.state.isOverviewRead ? (
-            <ScrollView>
+            <ScrollView ref='_scrollView'>
                 <ImageBackground
                     source={require('../../assets/Images/forest.png')}
                     style={styles.backgroundImg}
                 >
                   <View>
                     <View>
-                      {this.state.errorMessages.length ? (
-                        this.state.errorMessages.map(error => {
-                          return (<Text 
-                              key={Math.random()} 
-                              style={styles.error}>
-                                {error}
-                                </Text>)
-                        })
+                      {this.state.errorMessage ? (
+                        <View style={styles.errorContainer}>
+                          <Image
+                            style={styles.icon}
+                            source={require('../../assets/Images/DarkLogo.png')}
+                            />
+                          <Text 
+                            key={Math.random()} 
+                            style={styles.error}
+                          >
+                            {this.state.errorMessage}
+                          </Text>
+                        </View>
                       ): undefined }
                     </View>
                       <UserForm />
@@ -81,7 +86,7 @@ import { setUserInfo } from './Api/actions';
                   </View>
                   <View>
                     <TouchableOpacity 
-                    style={styles.button}
+                    style={styles.saveButton}
                     onPress={() => this.handleSaveForm()}
                     >
                       <Text style={styles.buttonText}>Save</Text>
@@ -96,7 +101,7 @@ import { setUserInfo } from './Api/actions';
             >
             <View style={styles.header}>
               <TouchableOpacity 
-                style={styles.button}
+                style={styles.closeButton}
                 onPress={() => this.closeInfoWindow()}
               >
                 <Text style={styles.buttonText}>X</Text>
@@ -122,6 +127,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  icon: {
+    width: 120,
+    height: 70,
+    marginLeft: 70
+  },
   backgroundImg: {
     flex: 1,
     padding: 25,
@@ -140,16 +150,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#000',
   },
-  button: {
+  closeButton: {
     marginLeft: 100, 
     alignItems: 'flex-end',
   },
+  saveButton: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderRadius: 40,
+    backgroundColor: '#fff',
+    width: '75%',
+    marginTop: 30,
+    left: 40,
+    padding: 10
+  },
   buttonText: {
     fontSize: 40,
+    textAlign: 'center'
   },
   error: {
-    color: 'red',
-    fontSize: 40,
+    color: '#900',
+    fontSize: 18,
+  },
+  errorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 20,
+    backgroundColor: '#fff',
+    borderRadius: 18
   }
 });
 

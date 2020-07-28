@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
     StyleSheet,
     Text,
-    TextInput,
     View,
     Image,
     TouchableOpacity,
@@ -88,28 +87,28 @@ button: {
     bottom: 40,
     left: 65,
     },
-    buttonText: {
+buttonText: {
     fontFamily: 'OpenSansCondensed_300Light',
     color: '#000',
     padding: 10,
     textAlign: 'center',
     fontSize: 30,
     textTransform: 'capitalize'
-    },  
-    input: {
+},  
+input: {
     paddingTop: 10,
     paddingBottom: 15,
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 20,
-    },
-    icon: {
+},
+icon: {
     width: 250,
     height: 150,
     marginBottom: 20,
     marginTop: 220,
     marginLeft: 130
-    },
+},
 })
 
 const mapStateToProps = (state) => {

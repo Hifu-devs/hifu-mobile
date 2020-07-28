@@ -10,6 +10,7 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
     TouchableOpacity,
     ImageBackground,
   } from 'react-native';
@@ -76,15 +77,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoHeader: {
-    marginTop: 40,
-    fontFamily: 'OpenSansCondensed_300Light',
-    fontSize: 75,
-    textAlign: 'center',
-    color: '#000',
+    marginTop: 30,
   },
   logoText: {
     fontFamily: 'OpenSansCondensed_300Light',
-    fontSize: 31,
+    fontSize: 25,
     color: '#000',
     textAlign: 'center',
   },
@@ -98,7 +95,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '65%',
     position: 'absolute',
-    bottom: 40,
+    bottom: 30,
     left: '30%',
   },
   buttonText: {
@@ -108,5 +105,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
   },  
+  icon: {
+    width: 250,
+    height: 150,
+    // marginBottom: 20,
+    marginLeft: 65
+    },
 });
 

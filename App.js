@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { store } from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 
 // App Imports
 import LandingPage from './src/LandingPage/LandingPage';
@@ -22,7 +21,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Map'>
+          <Stack.Navigator initialRouteName='Home'>
             <Stack.Screen 
               name='Home' 
               component={LandingPage} 

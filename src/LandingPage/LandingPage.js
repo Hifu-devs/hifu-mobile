@@ -36,7 +36,11 @@ export default LandingPage = ({ navigation }) => {
           style={styles.backgroundImg}
         >
           <LinearGradient
-            colors={['rgba(196, 196, 196, 0)', 'rgba(196, 196, 196, 0.87)', 'rgba(196, 196, 196, 0)']}
+            colors={[
+            'rgba(196, 196, 196, 0)', 
+            'rgba(196, 196, 196, 0.87)', 
+            'rgba(196, 196, 196, 0)'
+          ]}
             style={styles.linearGradient}
           >
             <View style={styles.logoHeader}>

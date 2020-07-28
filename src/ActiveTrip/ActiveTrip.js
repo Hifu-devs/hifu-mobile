@@ -37,7 +37,6 @@ handleCheckInUser = async (email) => {
 
 render() {
 
-    // const emailIcon = <Icon name='envelope' size={30} color="#900" />;
     return (
         <View style={styles.container}>
             <Image
@@ -112,15 +111,15 @@ icon: {
 })
 
 const mapStateToProps = (state) => {
-return {
-    user: state.form.user.values
-}
+    return {
+        user: state.form.user.values
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {  
-return {
+    return {
 
-}
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveTrip);

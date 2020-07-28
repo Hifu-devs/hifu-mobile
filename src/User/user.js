@@ -9,6 +9,7 @@ import {
     ImageBackground,
     ScrollView,
   } from 'react-native';
+  import Icon from 'react-native-vector-icons/AntDesign';
 
 // App Imports
 import UserForm from '../Forms/UserForm';
@@ -95,27 +96,31 @@ import { setUserInfo } from './Api/actions';
                 </ImageBackground>
             </ScrollView>
             ) : (
-            <ImageBackground
-            source={require('../../assets/Images/desert.png')}
-            style={styles.backgroundImg}
-            >
-            <View style={styles.header}>
-              <TouchableOpacity 
-                style={styles.closeButton}
-                onPress={() => this.closeInfoWindow()}
+            <ScrollView>
+             <ImageBackground
+              source={require('../../assets/Images/desert.png')}
+              style={styles.backgroundImg}
               >
-                <Text style={styles.buttonText}>X</Text>
-              </TouchableOpacity>
-              <Text style={styles.infoHeader}>
-                {'Welcome to hifu'.toUpperCase()}
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.infoText}>
-                A search and rescue ‘dead man’s switch’ for all of your outdoor activities. After entering your personal information, and an emergency contact, you can define your route’s waypoints.  When all the information is complete, submit your activity and it will be stored securely. When you check-in before your route’s end time, ALL of your submitted information is deleted from our system. If you fail to checked-in by the stated end time of your route, we will automatically forward all of your location and trip info to your emergency contact.
-              </Text>
-            </View>
-          </ImageBackground> 
+              <View style={styles.header}>
+                <TouchableOpacity 
+                  style={styles.closeButton}
+                  onPress={() => this.closeInfoWindow()}
+                >
+                  <View>
+                    <Icon name='closecircleo' size={35} color='#000' />
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.infoHeader}>
+                  {'Welcome to hifu'.toUpperCase()}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.infoText}>
+                  A search and rescue ‘dead man’s switch’ for all of your outdoor activities. After entering your personal and emergency contact information, you will be redirected to your map, where you can search for, and define, your location and custom route waypoints. When all the information is complete, submit your activity and it will be stored securely. When you check-in before your routes end time, ALL of your submitted information is deleted from our system. If you fail to checked-in by the stated end time of your route, we will automatically forward all of your location and trip info to your emergency contact.
+                </Text>
+              </View>
+            </ImageBackground> 
+          </ScrollView>
           )}      
         </View>
       )

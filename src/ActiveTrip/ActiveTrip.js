@@ -1,3 +1,4 @@
+// Imports
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import {
@@ -11,6 +12,9 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Reinput from 'reinput';
 
+// App Imports
+import { checkInUser } from '../User/Api/actions';
+
 
 class ActiveTrip extends Component {
 
@@ -23,11 +27,11 @@ constructor(props) {
     }
 
 handleCheckInUser = async (email) => {
-    console.log('hey', email);
+
     const userEmail = this.props.user.email;
-    console.log('userEmail', userEmail);
+ 
     if(email === userEmail){
-        // await this.props.checkInUser();
+        await this.props.checkInUser(userEmail);
         this.props.navigation.navigate('Home'); 
     } else {
         this.setState({
@@ -119,9 +123,9 @@ return {
 }
 
 const mapDispatchToProps = (dispatch) => {  
-return {
-
-}
+    return {
+     checkInUser: (email) => dispatch(checkInUser(email))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveTrip);

@@ -90,7 +90,7 @@ class Map extends Component {
   }
 
   handleSubmitUserForm = async () => {
-    // await this.props.postUserForm(this.props.userForm);
+    await this.props.postUserForm(this.props.userForm);
     this.props.navigation.navigate('Active Trip'); 
   }
 

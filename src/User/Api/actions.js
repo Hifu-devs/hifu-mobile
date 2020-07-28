@@ -24,22 +24,6 @@ export const setRouteInfo = (waypoints) => {
 }
 
 export function postUserForm(userForm) {  
-    // const body = {
-    //     query: `
-    //       mutation ($userEmail: String!) {
-    //         checkIn (
-    //           userEmail: $userEmail
-    //         ) {
-    //           user{
-    //           name
-    //         }
-    //         }
-    //       }
-    //     `,
-    //     variables: {
-    //         userEmail: "taco@taco.com"
-    //     }
-    // }
     const body = {
         query: `
           mutation ($user: UserInput!, $contact: ContactInput!, $route: RouteInput!) {
@@ -61,7 +45,7 @@ export function postUserForm(userForm) {
       }
     console.log('hittin dat API', body);   
     return dispatch => {
-      return axios.post('http://192.168.0.8/api/v1', 
+      return axios.post('https://hifu-api.herokuapp.com/api/v1', 
       body)
       .then((response) => {
         if (response.status === 200) {
@@ -76,7 +60,7 @@ export function postUserForm(userForm) {
 export function checkInUser(email) {
   const body = {
     query: `
-    mutation ($userEmail:: String!) {
+    mutation ($userEmail: String!) {
       checkIn (
         userEmail: $userEmail
       ) {
@@ -92,7 +76,7 @@ export function checkInUser(email) {
   }
 
   return dispatch => {
-    return axios.post('URL', 
+    return axios.post('https://hifu-api.herokuapp.com/api/v1', 
     body)
     .then((response) => {
       if (response.status === 200) {

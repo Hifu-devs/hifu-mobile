@@ -72,3 +72,34 @@ export function postUserForm(userForm) {
 	});
   }
 }
+
+export function checkInUser(email) {
+  const body = {
+    query: `
+    mutation ($userEmail:: String!) {
+      checkIn (
+        userEmail: $userEmail
+      ) {
+        user{
+          name
+        }
+      }
+    }
+    `,
+    variables: {
+      userEmail: email
+    }
+  }
+
+  return dispatch => {
+    return axios.post('URL', 
+    body)
+    .then((response) => {
+      if (response.status === 200) {
+          console.log('response', response);
+      } else {
+          console.log("error");
+      }
+    });
+  }
+}

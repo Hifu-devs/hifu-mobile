@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LandingPage from './src/LandingPage/LandingPage';
 import User from './src/User/User';
 import Map from './src/Map/Map';
-// import ActiveTrip from './src/ActiveTrip/activeTrip';
+import ActiveTrip from './src/ActiveTrip/ActiveTrip';
 
 console.disableYellowBox = true;
 
@@ -22,23 +22,23 @@ class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='LandingPage'>
+          <Stack.Navigator initialRouteName='Map'>
             <Stack.Screen 
               name='Home' 
               component={LandingPage} 
             />
             <Stack.Screen
-              name='User'
+              name='Info'
               component={User}
             />
             <Stack.Screen
               name='Map'
               component={Map}
             />
-              {/* <Stack.Screen
+              <Stack.Screen
               name='Active Trip'
               component={ActiveTrip}
-            /> */}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

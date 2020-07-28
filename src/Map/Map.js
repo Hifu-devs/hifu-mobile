@@ -85,12 +85,13 @@ class Map extends Component {
 
   addWaypointsUserform = async (waypoints) => {
     await this.props.setRouteInfo(waypoints);
+    this.handleSubmitUserForm(this.props.userForm);
     console.log('userForm', this.props.userForm);
-    this.props.postUserForm(this.props.userForm)
   }
 
   handleSubmitUserForm = async () => {
-
+    // await this.props.postUserForm(this.props.userForm);
+    this.props.navigation.navigate('Active Trip'); 
   }
 
 

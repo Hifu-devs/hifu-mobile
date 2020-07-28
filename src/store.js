@@ -9,7 +9,7 @@ import {
  import {reducer as formReducer} from 'redux-form';
 
 // App Imports 
-import * as userInfo from './Forms/Api/reducers';
+import * as userInfo from './User/Api/reducers';
 import * as userRoute from './Map/Api/reducers';
 
 // Root Reducer

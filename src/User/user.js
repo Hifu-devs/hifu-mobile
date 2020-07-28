@@ -14,7 +14,7 @@ import {
 import UserForm from '../Forms/UserForm';
 import ContactForm from '../Forms/ContactForm';
 import TripForm from '../Forms/TripForm';
-import { setUserInfo } from '../Forms/Api/actions';
+import { setUserInfo } from './Api/actions';
 
 
   class User extends Component {

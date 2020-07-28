@@ -14,7 +14,7 @@ import { AppLoading } from 'expo';
 // App Imports 
 import SearchBar from '../Search/Search';
 import { setLocation, setWayPoint, setRegion } from './Api/actions';
-import { setRouteInfo } from '../User/Api/actions';
+import { setRouteInfo, postUserForm } from '../User/Api/actions';
 import * as GOOGLE_API_KEY from '../../ENV';
 const apiKey = GOOGLE_API_KEY.default;
 
@@ -84,10 +84,9 @@ class Map extends Component {
   }
 
   addWaypointsUserform = async (waypoints) => {
-    console.log('hey');
-    console.log('waypoints', waypoints);
     await this.props.setRouteInfo(waypoints);
     console.log('userForm', this.props.userForm);
+    this.props.postUserForm(this.props.userForm)
   }
 
   handleSubmitUserForm = async () => {
@@ -110,25 +109,25 @@ class Map extends Component {
             showsUserLocation={true}
             onPress={(e) => this.onMapPress(e)}
             zoomEnabled={true}
-            zoomControlEnabled={true}    
+            zoomControlEnabled={true}
           >
             {this.props.wayPoints[0].length >= 2 ?
-             <MapView.Polyline
-              coordinates={this.props.wayPoints[0]}
-              strokeWidth={5}
-              strokeColor={'#0CA5E7'}
-           />
+            <MapView.Polyline
+            coordinates={this.props.wayPoints[0]}
+            strokeWidth={5}
+            strokeColor={'#0CA5E7'}
+            />
             : null  
             }
+             {markers}
+          </MapView>         
             <SearchBar />
-            {markers}
             <TouchableOpacity 
                 style={styles.button}
                 onPress={() => this.addWaypointsUserform(this.props.wayPoints[0])}
               >
               <Text style={styles.buttonText}>{'Submit'.toUpperCase()}</Text>
             </TouchableOpacity>
-          </MapView>
         </View>
       )
     }
@@ -175,7 +174,8 @@ const mapDispatchToProps = (dispatch) => {
     setLocation: (lat, lon) => dispatch(setLocation(lat, lon)),
     setWayPoint: (lat, lon) => dispatch(setWayPoint(lat, lon)),
     setRegion: (region) => dispatch(setRegion(region)),
-    setRouteInfo: (waypoints) => dispatch(setRouteInfo(waypoints))
+    setRouteInfo: (waypoints) => dispatch(setRouteInfo(waypoints)),
+    postUserForm: (userForm) => dispatch(postUserForm(userForm))
   }
 }
 

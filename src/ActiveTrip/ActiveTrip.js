@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import {
     StyleSheet,
     Text,
-    TextInput,
     View,
     Image,
     TouchableOpacity,
   } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Reinput from 'reinput';
 
 // App Imports
-import { checkInUser } from '../User/Api/actions';
+import { checkInUser, clearUserInfo } from '../User/Api/actions';
 
 
 class ActiveTrip extends Component {
@@ -28,11 +26,12 @@ constructor(props) {
 
 handleCheckInUser = async (email) => {
 
-    const userEmail = this.props.user.email;
+    const userEmail = await this.props.user.email;
  
     if(email === userEmail){
-        await this.props.checkInUser(userEmail);
-        this.props.navigation.navigate('Home'); 
+        this.props.checkInUser(userEmail);
+        await this.props.clearUserInfo();
+        this.props.navigation.navigate('Info'); 
     } else {
         this.setState({
             errorMessage: 'Input correct email'
@@ -42,7 +41,6 @@ handleCheckInUser = async (email) => {
 
 render() {
 
-    // const emailIcon = <Icon name='envelope' size={30} color="#900" />;
     return (
         <View style={styles.container}>
             <Image
@@ -92,39 +90,40 @@ button: {
     bottom: 40,
     left: 65,
     },
-    buttonText: {
-    // fontFamily: 'OpenSansCondensed_300Light',
+buttonText: {
+    fontFamily: 'OpenSansCondensed_300Light',
     color: '#000',
     padding: 10,
     textAlign: 'center',
     fontSize: 30,
     textTransform: 'capitalize'
-    },  
-    input: {
+},  
+input: {
     paddingTop: 10,
     paddingBottom: 15,
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 20,
-    },
-    icon: {
+},
+icon: {
     width: 250,
     height: 150,
     marginBottom: 20,
     marginTop: 220,
     marginLeft: 130
-    },
+},
 })
 
 const mapStateToProps = (state) => {
-return {
-    user: state.form.user.values
-}
+    return {
+        user: state.form.user.values
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {  
     return {
-     checkInUser: (email) => dispatch(checkInUser(email))
+     checkInUser: (email) => dispatch(checkInUser(email)),
+     clearUserInfo: () => dispatch(clearUserInfo())
     }
 }
 

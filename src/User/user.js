@@ -9,6 +9,7 @@ import {
     ImageBackground,
     ScrollView,
   } from 'react-native';
+  import Icon from 'react-native-vector-icons/AntDesign';
 
 // App Imports
 import UserForm from '../Forms/UserForm';
@@ -24,7 +25,7 @@ import { setUserInfo } from './Api/actions';
         
         this.state = {
           isOverviewRead: false,
-          errorMessages: [],
+          errorMessage: null,
         }
       }
     
@@ -39,11 +40,11 @@ import { setUserInfo } from './Api/actions';
       const userErrors = this.props.user.syncErrors;
       const contactErrors = this.props.contact.syncErrors;
       const routeErrors = this.props.route.syncErrors;
-      if(userErrors || contactErrors || routeErrors){
-        const errors = Object.values(userErrors).concat(Object.values(contactErrors)).concat(Object.values(routeErrors));     
+      if(userErrors || contactErrors || routeErrors){     
         this.setState({
-          errorMessages: errors
-        })
+          errorMessage: 'Please fill out all required fields'
+        });
+        this.refs._scrollView.scrollTo(0)
       } else {
         const userData = await this.props.user.values
         const contactData = await this.props.contact.values 
@@ -58,21 +59,26 @@ import { setUserInfo } from './Api/actions';
         return (
           <View style={styles.container}>
             {this.state.isOverviewRead ? (
-            <ScrollView>
+            <ScrollView ref='_scrollView'>
                 <ImageBackground
                     source={require('../../assets/Images/forest.png')}
                     style={styles.backgroundImg}
                 >
                   <View>
                     <View>
-                      {this.state.errorMessages.length ? (
-                        this.state.errorMessages.map(error => {
-                          return (<Text 
-                              key={Math.random()} 
-                              style={styles.error}>
-                                {error}
-                                </Text>)
-                        })
+                      {this.state.errorMessage ? (
+                        <View style={styles.errorContainer}>
+                          <Image
+                            style={styles.icon}
+                            source={require('../../assets/Images/DarkLogo.png')}
+                            />
+                          <Text 
+                            key={Math.random()} 
+                            style={styles.error}
+                          >
+                            {this.state.errorMessage}
+                          </Text>
+                        </View>
                       ): undefined }
                     </View>
                       <UserForm />
@@ -81,7 +87,7 @@ import { setUserInfo } from './Api/actions';
                   </View>
                   <View>
                     <TouchableOpacity 
-                    style={styles.button}
+                    style={styles.saveButton}
                     onPress={() => this.handleSaveForm()}
                     >
                       <Text style={styles.buttonText}>Save</Text>
@@ -90,27 +96,31 @@ import { setUserInfo } from './Api/actions';
                 </ImageBackground>
             </ScrollView>
             ) : (
-            <ImageBackground
-            source={require('../../assets/Images/desert.png')}
-            style={styles.backgroundImg}
-            >
-            <View style={styles.header}>
-              <TouchableOpacity 
-                style={styles.button}
-                onPress={() => this.closeInfoWindow()}
+            <ScrollView>
+             <ImageBackground
+              source={require('../../assets/Images/desert.png')}
+              style={styles.backgroundImg}
               >
-                <Text style={styles.buttonText}>X</Text>
-              </TouchableOpacity>
-              <Text style={styles.infoHeader}>
-                {'Welcome to hifu'.toUpperCase()}
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.infoText}>
-                A search and rescue ‘dead man’s switch’ for all of your outdoor activities. After entering your personal information, and an emergency contact, you can define your route’s waypoints.  When all the information is complete, submit your activity and it will be stored securely. When you check-in before your route’s end time, ALL of your submitted information is deleted from our system. If you fail to checked-in by the stated end time of your route, we will automatically forward all of your location and trip info to your emergency contact.
-              </Text>
-            </View>
-          </ImageBackground> 
+              <View style={styles.header}>
+                <TouchableOpacity 
+                  style={styles.closeButton}
+                  onPress={() => this.closeInfoWindow()}
+                >
+                  <View>
+                    <Icon name='closecircleo' size={35} color='#000' />
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.infoHeader}>
+                  {'Welcome to hifu'.toUpperCase()}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.infoText}>
+                  A search and rescue ‘dead man’s switch’ for all of your outdoor activities. After entering your personal and emergency contact information, you will be redirected to your map, where you can search for, and define, your location and custom route waypoints. When all the information is complete, submit your activity and it will be stored securely. When you check-in before your routes end time, ALL of your submitted information is deleted from our system. If you fail to checked-in by the stated end time of your route, we will automatically forward all of your location and trip info to your emergency contact.
+                </Text>
+              </View>
+            </ImageBackground> 
+          </ScrollView>
           )}      
         </View>
       )
@@ -122,10 +132,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  icon: {
+    width: 120,
+    height: 70,
+    marginLeft: 70
+  },
   backgroundImg: {
     flex: 1,
     padding: 25,
-    // resizeMode: 'cover',
     justifyContent: 'center',
   },
   infoHeader: {
@@ -141,16 +155,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#000',
   },
-  button: {
+  closeButton: {
     marginLeft: 100, 
     alignItems: 'flex-end',
   },
+  saveButton: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderRadius: 40,
+    backgroundColor: '#fff',
+    width: '75%',
+    marginTop: 30,
+    left: 40,
+    padding: 10
+  },
   buttonText: {
     fontSize: 40,
+    textAlign: 'center'
   },
   error: {
-    color: 'red',
-    fontSize: 40,
+    color: '#900',
+    fontSize: 18,
+  },
+  errorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 20,
+    backgroundColor: '#fff',
+    borderRadius: 18
   }
 });
 

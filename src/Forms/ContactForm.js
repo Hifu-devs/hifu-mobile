@@ -2,7 +2,8 @@ import React, { Component }  from 'react';
 import { reduxForm, Field } from 'redux-form';
 import {
     StyleSheet,
-    ScrollView,
+    View,
+    Text
   } from 'react-native';
 
 // App Imports
@@ -12,14 +13,16 @@ class ContactForm extends Component {
   render() {
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.headerText}>Emergency Contact:</Text>
+        </View>
         <Field
-          placeholder={'Name'}
           name={'name'}
           component={textInput}
         />
         <Field
-          placeholder={'email'}
+          placeholder={'email@gmail.com'}
           name={'email'}
           component={textInput}
         />
@@ -28,9 +31,9 @@ class ContactForm extends Component {
           name={'phone'}
           component={textInput}
           keyboardType={'numeric'}
-          validate={(val) => val ? undefined : 'Contact phone number is required'}
+          // validate={(val) => val ? undefined : 'Contact phone number is required'}
         />
-      </ScrollView>         
+      </View>         
     )
   }
 }
@@ -41,7 +44,19 @@ const styles = StyleSheet.create({
     marginTop: 50,
     padding: 20,
     backgroundColor: '#fff',
+    borderRadius: 18
   },
+  sectionHeader: {
+    borderBottomWidth: 8,
+    borderBottomColor: '#3A6360',
+    width: '100%',
+    marginBottom: 20,
+    marginTop: 5
+  },
+  headerText: {
+    fontFamily: 'OpenSansCondensed_300Light',
+    fontSize: 32,
+  }
 });
 
 export default reduxForm({
@@ -58,5 +73,3 @@ export default reduxForm({
     return errors;
   }
 })(ContactForm);
-
-// export default reduxForm({ form: 'contact' })(ContactForm);

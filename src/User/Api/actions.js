@@ -5,6 +5,7 @@ import { mutation } from "gql-query-builder";
 // Action Exports
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_ROUTE_INFO = 'SET_ROUTE_INFO';
+export const CLEAR_USER_INFO = 'CLEAR_USER_INFO'
 
 export const setUserInfo = (userData, contactData, routeData) => {
     return {
@@ -85,5 +86,11 @@ export function checkInUser(email) {
           console.log("error");
       }
     });
+  }
+}
+
+export const clearUserInfo = () => {
+  return {
+    type: 'CLEAR_USER_INFO',  
   }
 }

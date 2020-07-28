@@ -11,7 +11,7 @@ import {
 import Reinput from 'reinput';
 
 // App Imports
-import { checkInUser } from '../User/Api/actions';
+import { checkInUser, clearUserInfo } from '../User/Api/actions';
 
 
 class ActiveTrip extends Component {
@@ -26,11 +26,12 @@ constructor(props) {
 
 handleCheckInUser = async (email) => {
 
-    const userEmail = this.props.user.email;
+    const userEmail = await this.props.user.email;
  
     if(email === userEmail){
-        await this.props.checkInUser(userEmail);
-        this.props.navigation.navigate('Home'); 
+        this.props.checkInUser(userEmail);
+        await this.props.clearUserInfo();
+        this.props.navigation.navigate('Info'); 
     } else {
         this.setState({
             errorMessage: 'Input correct email'
@@ -121,7 +122,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {  
     return {
-     checkInUser: (email) => dispatch(checkInUser(email))
+     checkInUser: (email) => dispatch(checkInUser(email)),
+     clearUserInfo: () => dispatch(clearUserInfo())
     }
 }
 

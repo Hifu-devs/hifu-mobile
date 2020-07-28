@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 250,
     height: 150,
-    // marginBottom: 20,
     marginLeft: 65
     },
 });

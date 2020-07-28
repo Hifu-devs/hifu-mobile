@@ -20,11 +20,13 @@ class TripForm extends Component {
         </View>
         <View style={styles.dateTimeField}>
           <Field
-            name={'Start Time & Date'}
+            placeholder={'Start Time & Date'}
+            name={'startDate'}
             component={DateInputField}
           />
           <Field
-            name={'End Time & Date'}
+            placeholder={'End Time & Date'}
+            name={'endDate'}
             component={DateInputField}
           />
         </View>

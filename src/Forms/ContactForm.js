@@ -31,7 +31,7 @@ class ContactForm extends Component {
           name={'phone'}
           component={textInput}
           keyboardType={'numeric'}
-          validate={(val) => val ? undefined : 'Contact phone number is required'}
+          // validate={(val) => val ? undefined : 'Contact phone number is required'}
         />
       </View>         
     )

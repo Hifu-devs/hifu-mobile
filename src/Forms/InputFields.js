@@ -38,7 +38,7 @@ export class DateInputField extends Component {
     return (
       <>
         <View>
-          <Text style={styles.dateHeader}>{this.props.input.name}</Text>
+          <Text style={styles.dateHeader}>{this.props.input.placeholder}</Text>
           <Text style={styles.requiredText}>Required*</Text>
           <TouchableOpacity
             style={styles.calendarIcon} 

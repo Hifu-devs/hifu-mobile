@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
   backgroundImg: {
     flex: 1,
     padding: 25,
-    // resizeMode: 'cover',
     justifyContent: 'center',
   },
   infoHeader: {

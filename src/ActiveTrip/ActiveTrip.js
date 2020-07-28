@@ -89,7 +89,7 @@ button: {
     left: 65,
     },
     buttonText: {
-    // fontFamily: 'OpenSansCondensed_300Light',
+    fontFamily: 'OpenSansCondensed_300Light',
     color: '#000',
     padding: 10,
     textAlign: 'center',

@@ -2,8 +2,8 @@ import React, { Component }  from 'react';
 import { reduxForm, Field } from 'redux-form';
 import {
     StyleSheet,
-    ScrollView,
-    Button,
+    View,
+    Text
   } from 'react-native';
 
 
@@ -14,35 +14,33 @@ class TripForm extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.headerText}>Trip Information:</Text>
+        </View>
         <Field
-          placeholder={'Start Date/ Time'}
           name={'startDate'}
           component={DateInputField}
         />
         <Field
-          placeholder={'End Date/ Time'}
           name={'endDate'}
           component={DateInputField}
         />
         <Field
-          placeholder={'Activity'}
           name={'activity'}
           component={textInput}
         />
          <Field
-          placeholder={'Party Size'}
           name={'partySize'}
           component={textInput}
           keyboardType={'numeric'}
         />
          <Field
-          placeholder={'Notes'}
           name={'notes'}
           multiline={true}
           component={textInput}
         />
-      </ScrollView>         
+      </View>         
     )
   }
 }
@@ -53,7 +51,30 @@ const styles = StyleSheet.create({
     marginTop: 50,
     padding: 20,
     backgroundColor: '#fff',
+    borderRadius: 18
   },
+  sectionHeader: {
+    borderBottomWidth: 8,
+    borderBottomColor: '#3A6360',
+    width: '100%',
+    marginBottom: 20,
+    marginTop: 5
+  },
+  headerText: {
+    fontFamily: 'OpenSansCondensed_300Light',
+    fontSize: 32,
+  }
 });
 
-export default reduxForm({form: 'route'})(TripForm);
+export default reduxForm({
+  form: 'route',
+  validate: (values) => {
+    console.log('values', values);
+    let errors = {};
+    errors.activity = !values.activity
+      ? 'Activity field is required'
+      : errors = {};
+    
+    return errors;
+  }
+})(TripForm);

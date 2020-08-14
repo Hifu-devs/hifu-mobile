@@ -3,10 +3,8 @@
    <img align="center" src="https://i.ibb.co/zs5rd2Q/DarkLogo.png" alt="hifu-logo">
   </a>
 
-  <h3 align="center">HIFU</h3>
-
   <p align="center">
-  HIFU - When You Want To Get Lost, But Still Found
+  When You Want To Get Lost, But Still Found
   </p>
 </p>  
 

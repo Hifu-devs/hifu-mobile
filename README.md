@@ -1,6 +1,6 @@
 <p align="center">
   <a>
-   <img align="center" src="https://i.ibb.co/zs5rd2Q/DarkLogo.png" alt="hifu-logo">
+   <img align="center" src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
   </a>
 
   <p align="center">
@@ -8,7 +8,7 @@
   </p>
 </p>  
 
-[HIFU Demo Video](https://turingschool.slack.com/files/UQRM2KCR3/F017X4N53CN/hifu_demo.mp4)
+[HIFU Demo Video](https://youtu.be/d8mudwdKPhk)
 
 ## Table of Contents
 1. [Summary](#summary)

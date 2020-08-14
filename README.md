@@ -1,6 +1,6 @@
 <p align="center">
   <a>
-   <img src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
+   <img align="center" src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
   </a>
 </p>  
 

@@ -1,10 +1,10 @@
 <p align="center">
   <a>
-   <img align="center" src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
+   <img src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
   </a>
 </p>  
 
-<h3 align="center"> When You Want To Get Lost, But Still Found </h3>
+<h2 align="center"> When You Want To Get Lost, But Still Found </h2>
 
 [HIFU Demo Video](https://youtu.be/d8mudwdKPhk)
 

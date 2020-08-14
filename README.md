@@ -4,7 +4,7 @@
   </a>
 </p>  
 
-<h1 align="center"> When You Want To Get Lost, But Still Found </h1>
+<h2 align="center"> When You Want To Get Lost, But Still Found </h2>
 
 [HIFU Demo Video](https://youtu.be/d8mudwdKPhk)
 

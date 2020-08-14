@@ -2,11 +2,9 @@
   <a>
    <img align="center" src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
   </a>
-
-  <p align="center">
-  When You Want To Get Lost, But Still Found
-  </p>
 </p>  
+
+### When You Want To Get Lost, But Still Found
 
 [HIFU Demo Video](https://youtu.be/d8mudwdKPhk)
 
@@ -51,8 +49,8 @@ Follow the steps below to get this project up and running on your local environm
 4. Have ability to save frequented trips/ sites to user profile.
 
 ## Contributors
-- [Megan Huggins - FE](https://github.com/lmanriq)
-- [Brian Greeson - BE](https://github.com/hborrelli1)
-- [Margo Flewelling - BE](https://github.com/nkeller1)
-- [Krista Stadler - BE](https://github.com/willkunz13)
+- [Megan Huggins - FE](https://github.com/MeganHuggins)
+- [Brian Greeson - BE](https://github.com/brian-greeson)
+- [Margo Flewelling - BE](https://github.com/margoflewelling)
+- [Krista Stadler - BE](https://github.com/kristastadler)
 

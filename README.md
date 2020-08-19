@@ -1,12 +1,9 @@
-<p align="center">
-  <a>
-   <img align="center" src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
-  </a>
-</p>  
 
-<h2 align="center"> When You Want To Get Lost, <br> But Still Found </h2>
+<img src="https://i.ibb.co/prjqK3k/logo.png" alt="hifu-logo">
 
-[HIFU Demo Video](https://youtu.be/d8mudwdKPhk)
+<h2> When You Want To Get Lost, <br> But Still Found </h2>
+
+[HIFU Demo Video](https://youtu.be/N3UlJqEU40E)
 
 ## Table of Contents
 1. [Summary](#summary)
